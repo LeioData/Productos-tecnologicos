@@ -1,293 +1,220 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leonardo Data | Productos tecnológicos</title>
-  <meta name="description" content="Catálogo de productos tecnológicos de LeioData con diseño moderno e interactivo." />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LeioTech Store — Productos Apple</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    background-color: #f5f5f7;
+    color: #1d1d1f;
+  }
+  header {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    padding: 30px;
+  }
+  .card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: scale(1.03);
+  }
+  .card img {
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+  }
+  .card-content {
+    padding: 20px;
+  }
+  h3 {
+    margin: 0;
+    color: #0071e3;
+  }
+  .price {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  button {
+    background: #0071e3;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background: #005bb5;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #000;
+    color: #fff;
+  }
 
-  <!-- Fuentes -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    :root {
-      --blue-900:#0A192F;
-      --blue-800:#112240;
-      --teal:#64FFDA;
-      --white:#E6F1FF;
-      --muted:#8892B0;
-      --radius:18px;
-      --shadow:0 10px 30px rgba(0,0,0,.25);
-      --shadow-soft:0 8px 20px rgba(100,255,218,0.12);
-      --grad: radial-gradient(1200px 600px at 80% -10%, rgba(100,255,218,0.12), transparent 60%), radial-gradient(900px 400px at 10% 110%, rgba(100,255,218,0.08), transparent 60%), linear-gradient(160deg, #0A192F 0%, #0F1C33 60%, #0A192F 100%);
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--grad);
-      color: var(--white);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    header {
-      position: sticky; top:0; z-index:100;
-      backdrop-filter: blur(6px);
-      background: linear-gradient(to bottom, rgba(10,25,47,.85), rgba(10,25,47,.35));
-      border-bottom: 1px solid rgba(100,255,218,0.25);
-      padding: 1rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    header h1 { font-size: 1.2rem; font-weight: 800; color: var(--teal); }
-
-    main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-
-    h2 { text-align:center; font-size: 1.8rem; margin-bottom: 30px; }
-
-    /* Grid de productos */
-    .grid {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .card {
-      background: rgba(17,34,64,0.8);
-      border: 1px solid rgba(100,255,218,0.2);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(100,255,218,0.4);
-      box-shadow: 0 10px 30px rgba(100,255,218,0.2);
-    }
-
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-bottom: 1px solid rgba(100,255,218,0.2);
-    }
-
-    .card-content {
-      padding: 15px;
-    }
-
-    .card-content h3 {
-      color: var(--teal);
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-
-    .card-content p {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal.active { display: flex; }
-
-    .modal-content {
-      background: var(--blue-800);
-      padding: 20px;
-      border-radius: 16px;
-      max-width: 500px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      position: relative;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .modal-content img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-
-    .modal-content h3 { color: var(--teal); margin-bottom: 10px; }
-    .modal-content p { color: var(--white); margin-bottom: 20px; }
-
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      color: var(--muted);
-      font-size: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .close-btn:hover { color: var(--teal); }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    footer {
-      text-align:center;
-      color: var(--muted);
-      margin: 40px 0 80px;
-    }
-
-    footer a { color: var(--teal); text-decoration:none; }
-
-    /* Botones flotantes */
-    .calendly-fab, .whatsapp-fab {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 200;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .whatsapp-fab { right: 80px; }
-    .bubble {
-      width: 54px; height: 54px;
-      border-radius: 16px;
-      display: grid; place-items: center;
-      background: rgba(100,255,218,.15);
-      border: 1px solid rgba(100,255,218,.45);
-      box-shadow: var(--shadow-soft);
-      transition: .25s ease;
-      backdrop-filter: blur(3px);
-    }
-    .bubble:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(100,255,218,.22);
-    }
-    .bubble:hover::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      right: 64px; bottom: 12px;
-      white-space: nowrap;
-      background: #061021;
-      color: var(--white);
-      border: 1px solid rgba(100,255,218,.35);
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      box-shadow: var(--shadow);
-    }
-    head .Carrito{
-      color: red;
-      text-alaign: right;
-    }
-  </style>
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+  }
+  .modal-content img {
+    width: 150px;
+    margin-bottom: 15px;
+  }
+</style>
 </head>
 
 <body>
-  <header>
-    <h1>Leonardo Data / LeioData</h1>
-    <div classname="Carrito"> Carrito </div> 
-  </header>
+<header>🍎 LeioTech Store</header>
 
-  <main>
-    <h2>🚀 Productos Tecnológicos</h2>
+<section class="container" id="productos"></section>
 
-    <div class="grid">
-      <div class="card" onclick="openModal(1)">
-        <img src="imagenes/FOTO 1.jpg" alt="Cargador A">
-        <div class="card-content">
-          <h3>Cargador A</h3>
-          <p>Cargador rápido USB tipo C de alta eficiencia energética.</p>
-        </div>
-      </div>
-
-      <div class="card" onclick="openModal(2)">
-        <img src="imagenes/FOTO 2.jpg" alt="Cargador B">
-        <div class="card-content">
-          <h3>Cargador B</h3>
-          <p>Adaptador portátil ideal para viajes y uso diario.</p>
-        </div>
-      </div>
-
-      <div class="card" onclick="openModal(3)">
-        <img src="imagenes/FOTO 3.jpg" alt="Cargador C">
-        <div class="card-content">
-          <h3>Cargador C</h3>
-          <p>Cable trenzado USB-C resistente y de carga rápida.</p>
-        </div>
-      </div>
-
-      <div class="card" onclick="openModal(4)">
-        <img src="imagenes/FOTO 4.jpg" alt="Cargador D">
-        <div class="card-content">
-          <h3>Cargador D</h3>
-          <p>Fuente de poder compacta con protección inteligente.</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <img id="modal-img" src="" alt="Imagen producto">
-      <h3 id="modal-title"></h3>
-      <p id="modal-desc"></p>
-    </div>
+<!-- Modal QR -->
+<div class="modal" id="modalPago">
+  <div class="modal-content">
+    <h3>Escanea tu QR para pagar 💳</h3>
+    <img src="./imagenes/QR YAPE LEO.jpeg" alt="QR Yape">
+    <img src="./imagenes/QR IBK LEO.jpeg" alt="QR Plin">
+    <p>O envía tu pago al número <strong>945199162</strong> (Yape / Plin)</p>
+    <button onclick="cerrarModal()">Cerrar</button>
   </div>
+</div>
 
-  <footer>
-    <p>Hecho con 💡 por <strong>Leonardo Díaz</strong> · <a href="https://github.com/LeioData" target="_blank">GitHub</a></p>
-  </footer>
+<footer>
+  Hecho con 💙 por Leonardo Díaz · LeioTech Store
+</footer>
 
-  <!-- Botones flotantes -->
-  <a class="calendly-fab" href="https://calendly.com/leonardoandre1054" target="_blank">
-    <div class="bubble" data-tooltip="Agenda una sesión conmigo">📅</div>
-  </a>
+<script>
+const productos = [
+  {
+    nombre: "Cable C (1m) Carga Rápida",
+    descripcion: "Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.",
+    caracteristicas: "Longitud 1 m; Conector USB-C a Lightning; Carga rápida Power Delivery; Material TPE flexible y duradero.",
+    precio: "S/ 38.00",
+    imagenes: ["1A Cable C (1m) Carga Rápida.jpg", "1B Cable C (1m) Carga Rápida.jpg"]
+  },
+  {
+    nombre: "Adaptador de corriente USB-C",
+    descripcion: "Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.",
+    caracteristicas: "Potencia de salida 20 W; Puerto USB-C; Compatible con carga rápida Power Delivery; Diseño compacto y portátil.",
+    precio: "S/ 40.00",
+    imagenes: ["2A Adaptador de corriente USB-C.jpg", "2B Adaptador de corriente USB-C.jpg"]
+  },
+  {
+    nombre: "Cable USB (1m)",
+    descripcion: "Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera rápida y segura.",
+    caracteristicas: "Longitud 1 m; Conector Lightning a USB-A; Compatible con iPhone, iPad y iPod; Material resistente de alta durabilidad.",
+    precio: "S/ 35.00",
+    imagenes: ["3A Cable USB (1m).jpg", "3B Cable USB (1m).jpg", "3C Cable USB (1m).jpg"]
+  },
+  {
+    nombre: "Cargador USB Portátil",
+    descripcion: "Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.",
+    caracteristicas: "Capacidad 2,600 mAh; Salida 5V/1A; Entrada 5V/0.5A (Micro USB); Batería de polímero ecológica; Indicador luminoso de carga.",
+    precio: "S/ 45.00",
+    imagenes: ["4A Cargador USB Portatil.jpeg", "4B Cargador USB Portatil.jpeg", "4C Cargador USB Portatil.jpg"]
+  }
+];
 
-  <a class="whatsapp-fab" href="https://wa.me/913004414" target="_blank">
-    <div class="bubble" data-tooltip="Chatea conmigo por WhatsApp"><i class="fa-brands fa-whatsapp" style="font-size:26px;color:#25D366"></i></div>
-  </a>
+// Render de productos
+const contenedor = document.getElementById("productos");
+productos.forEach((p, i) => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <img src="./imagenes/${p.imagenes[0]}" alt="${p.nombre}">
+    <div class="card-content">
+      <h3>${p.nombre}</h3>
+      <p>${p.descripcion}</p>
+      <p class="price">${p.precio}</p>
+      <button onclick="agregarAlCarrito(${i})">🛒 Agregar al carrito</button>
+    </div>`;
+  contenedor.appendChild(card);
+});
 
-  <script>
-    const productos = [
-      { titulo: "Cargador A", desc: "Cargador rápido USB tipo C de alta eficiencia energética.", img: "imagenes/FOTO 1.jpg" },
-      { titulo: "Cargador B", desc: "Adaptador portátil ideal para viajes y uso diario.", img: "imagenes/FOTO 2.jpg" },
-      { titulo: "Cargador C", desc: "Cable trenzado USB-C resistente y de carga rápida.", img: "imagenes/FOTO 3.jpg" },
-      { titulo: "Cargador D", desc: "Fuente de poder compacta con protección inteligente.", img: "imagenes/FOTO 4.jpg" },
-    ];
+let carrito = [];
 
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDesc = document.getElementById('modal-desc');
+function agregarAlCarrito(index) {
+  carrito.push(productos[index]);
+  alert(`✅ ${productos[index].nombre} agregado al carrito`);
+}
 
-    function openModal(index){
-      const p = productos[index-1];
-      modalImg.src = p.img;
-      modalTitle.textContent = p.titulo;
-      modalDesc.textContent = p.desc;
-      modal.classList.add('active');
-    }
+// Envío del pedido a Sheets + Gmail
+function enviarPedido(datos) {
+  fetch("https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datos)
+  });
+}
 
-    function closeModal(){
-      modal.classList.remove('active');
-    }
+// Finalizar compra
+function finalizarCompra() {
+  if (carrito.length === 0) return alert("Tu carrito está vacío 🛒");
+  const productosLista = carrito.map(p => p.nombre + " (" + p.precio + ")").join(", ");
+  const nombre = prompt("Tu nombre:");
+  const correo = prompt("Tu correo:");
+  const telefono = prompt("Tu número de WhatsApp:");
 
-    // Cierra modal al hacer clic fuera del contenido
-    window.onclick = function(e){
-      if(e.target === modal) closeModal();
-    };
-  </script>
+  const datos = {
+    nombre, correo, telefono,
+    producto: productosLista,
+    metodo: "WhatsApp"
+  };
+  enviarPedido(datos);
+
+  // WhatsApp link
+  const mensaje = `Hola 👋, estoy interesado en los siguientes productos: ${productosLista}`;
+  window.open(`https://wa.me/51945199162?text=${encodeURIComponent(mensaje)}`);
+
+  abrirModal();
+}
+
+// Modal QR
+function abrirModal() {
+  document.getElementById("modalPago").style.display = "flex";
+}
+function cerrarModal() {
+  document.getElementById("modalPago").style.display = "none";
+}
+</script>
+
+<!-- Botón flotante finalizar -->
+<div style="position:fixed;bottom:25px;right:25px;">
+  <button onclick="finalizarCompra()">💳 Finalizar compra</button>
+</div>
+
 </body>
 </html>
