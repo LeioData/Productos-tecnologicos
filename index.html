@@ -1,150 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LeioTech Store — Productos</title>
-
-<!-- Fuente -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LeioTech Store</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --bg:#0b1323;
-  --bg-2:#0e1a2b;
-  --card:#12233b;
-  --teal:#64ffda;
-  --muted:#8aa0b4;
-  --white:#e6f1ff;
-  --accent:#22a2ff;
-  --shadow:0 12px 40px rgba(0,0,0,.35);
-  --radius:18px;
+:root {
+  --bg:#0b1323; --card:#13233d; --accent:#22a2ff;
+  --teal:#64ffda; --muted:#8aa0b4; --white:#e6f1ff;
+  --shadow:0 10px 40px rgba(0,0,0,.4); --radius:20px;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-  color:var(--white); background:linear-gradient(180deg,#081021,#0b1323 40%,#0b1323);
+body {
+  margin:0; font-family:'Inter',sans-serif;
+  background:linear-gradient(180deg,#081021,#0b1323);
+  color:var(--white);
 }
-
-header{
-  position:sticky; top:0; z-index:50;
-  background:rgba(8,16,33,.7); backdrop-filter: blur(6px);
-  border-bottom:1px solid rgba(255,255,255,.06);
+header {
+  padding:14px 22px; border-bottom:1px solid rgba(255,255,255,.05);
+  background:rgba(8,16,33,.7); backdrop-filter:blur(5px);
+  display:flex; justify-content:space-between; align-items:center;
 }
-.nav{
-  max-width:1200px; margin:0 auto; padding:14px 18px;
-  display:flex; align-items:center; justify-content:space-between;
-}
-.brand{display:flex; gap:10px; align-items:center;}
-.brand b{letter-spacing:.2px; font-weight:800; color:var(--teal)}
+header b{color:var(--teal); font-weight:800; font-size:18px}
 .cart-btn{
-  position:relative; background:#132744; border:1px solid rgba(255,255,255,.08);
-  color:var(--white); padding:10px 14px; border-radius:12px; cursor:pointer;
+  background:#132744; border:1px solid rgba(255,255,255,.08);
+  color:#fff; border-radius:12px; padding:10px 14px; cursor:pointer;
+  position:relative;
 }
-.badge{
-  position:absolute; top:-7px; right:-7px; background:var(--accent);
-  border-radius:999px; font-size:12px; padding:2px 7px; font-weight:700;
+.cart-btn .badge{
+  position:absolute; top:-6px; right:-6px; background:var(--accent);
+  border-radius:50%; padding:2px 6px; font-size:12px; font-weight:700;
 }
-
-main{max-width:1200px; margin:24px auto 80px; padding:0 18px;}
-h2{font-weight:800; margin:6px 0 18px}
+main{max-width:1200px; margin:20px auto 80px; padding:0 20px;}
+h2{margin:0 0 18px; font-weight:800}
 .grid{
-  display:grid; gap:22px;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 }
 .card{
-  background:linear-gradient(180deg,#12233b,#0f1e33);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:var(--radius); box-shadow:var(--shadow);
-  overflow:hidden; transition:.25s transform;
+  background:var(--card); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; cursor:pointer;
+  transition:.25s transform;
 }
-.card:hover{transform:translateY(-3px)}
-.card img{width:100%; height:210px; object-fit:cover; display:block}
-.card .box{padding:16px 16px 18px}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%; height:210px; object-fit:cover}
+.card .box{padding:16px}
 .card h3{margin:0 0 6px; color:var(--teal)}
 .card p{margin:0; color:var(--muted); font-size:14px}
-.actions{display:flex; gap:10px; margin-top:12px}
-.btn{
-  appearance:none; border:1px solid rgba(255,255,255,.08);
-  background:#133052; color:var(--white);
-  padding:10px 12px; border-radius:12px; cursor:pointer; transition:.2s;
-}
-.btn:hover{background:#16406e}
-.btn.primary{background:var(--accent); border-color:transparent; color:#00111f}
-.btn.primary:hover{filter:brightness(1.05)}
-.price{font-weight:800; color:#d7e7ff; margin-top:8px}
+.card .price{font-weight:700; margin-top:8px}
 
-/* Modales */
+/* Modal general */
 .modal{
-  position:fixed; inset:0; display:none; place-items:center; z-index:80;
-  background:rgba(3,8,18,.6); backdrop-filter: blur(4px);
+  display:none; position:fixed; inset:0;
+  background:rgba(5,10,20,.6); backdrop-filter:blur(8px);
+  place-items:center; z-index:80;
 }
 .modal.show{display:grid}
 .sheet{
-  width:min(980px,92vw); background:linear-gradient(180deg,#0f1e33,#0e1a2b);
-  border:1px solid rgba(255,255,255,.09); border-radius:20px; box-shadow:var(--shadow);
-  overflow:hidden;
+  width:min(960px,95vw); background:#0e1a2b;
+  border:1px solid rgba(255,255,255,.1); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden;
 }
-.sheet-head{display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#0d192c}
-.sheet-title{font-weight:800}
-.x{background:transparent; color:var(--muted); border:0; font-size:22px; cursor:pointer}
-.sheet-body{padding:18px}
+.sheet-head{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px; background:#0d182b; font-weight:700;
+}
+.sheet-body{padding:18px;}
 
-/* Detalle producto */
-.detail{
-  display:grid; gap:18px; grid-template-columns: 1.2fr 1fr;
+/* Detalle de producto */
+.detail{display:grid; gap:18px; grid-template-columns:1fr 1fr; align-items:center;}
+.detail img{width:100%; height:380px; object-fit:contain; border-radius:var(--radius);}
+.gallery{position:relative;}
+.arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,.5); color:#fff; border:0;
+  font-size:20px; border-radius:50%; width:36px; height:36px;
+  cursor:pointer;
 }
-.gallery{display:grid; gap:10px}
-.gallery .hero{width:100%; height:330px; object-fit:cover; border-radius:14px; border:1px solid rgba(255,255,255,.06)}
-.thumbs{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
-.thumbs img{width:100%; height:66px; object-fit:cover; border-radius:10px; opacity:.9; cursor:pointer; border:1px solid rgba(255,255,255,.06)}
+.arrow.left{left:8px} .arrow.right{right:8px}
 .info h3{margin:0 0 8px; color:var(--teal)}
-.info small{color:var(--muted)}
-.info ul{margin:10px 0 0 18px; color:#c9d9ee}
-.info .price{font-size:18px}
+.info p{color:var(--muted)}
+.info ul{margin:10px 0 0 20px}
+.info .price{font-size:18px; font-weight:700; margin:12px 0}
+.btn{
+  background:#133052; color:#fff; border:1px solid rgba(255,255,255,.1);
+  padding:10px 14px; border-radius:10px; cursor:pointer; transition:.2s;
+}
+.btn.primary{background:var(--accent); border:none; color:#00111f}
+.btn:hover{filter:brightness(1.1)}
+.actions{display:flex; gap:10px; margin-top:10px}
 
 /* Carrito */
-.list{display:flex; flex-direction:column; gap:10px; max-height:300px; overflow:auto; padding-right:6px}
-.item{display:flex; gap:10px; align-items:center; background:#0f2037; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px}
-.item img{width:64px; height:54px; object-fit:cover; border-radius:10px}
-.item b{display:block}
-.k{margin-left:auto}
-.k button{background:#1a3353; border:1px solid rgba(255,255,255,.08); color:#cbd8ec; border-radius:10px; padding:6px 10px; cursor:pointer}
-.form{display:grid; gap:10px; margin-top:10px}
-.form input, .form textarea{
-  width:100%; background:#0f2037; color:#dce9ff; border:1px solid rgba(255,255,255,.12);
-  padding:10px 12px; border-radius:10px;
-}
-.helper{color:#9ab6d6; font-size:13px; margin-top:8px}
+.list{display:flex; flex-direction:column; gap:10px; max-height:300px; overflow:auto;}
+.item{display:flex; gap:10px; align-items:center; background:#0f2037;
+  border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px;}
+.item img{width:64px; height:54px; object-fit:cover; border-radius:10px;}
+.k{margin-left:auto;}
+.k button{background:#1a3353; border:none; color:#cbd8ec; border-radius:10px; padding:6px 10px; cursor:pointer;}
+.form{display:grid; gap:10px; margin-top:10px;}
+.form input{width:100%; background:#0f2037; color:#dce9ff; border:1px solid rgba(255,255,255,.12); padding:10px 12px; border-radius:10px;}
+.helper{color:#9ab6d6; font-size:13px; margin-top:6px;}
 
-/* FABs */
-.fabs{position:fixed; right:16px; bottom:16px; display:flex; gap:10px; z-index:60}
-.fab{
-  width:54px; height:54px; border-radius:16px; display:grid; place-items:center;
-  background:rgba(100,255,218,.12); border:1px solid rgba(100,255,218,.35); color:#25d366;
-  cursor:pointer; transition:.2s; box-shadow:var(--shadow)
-}
-.fab.calendar{color:#3a86ff}
+/* FAB */
+.fabs{position:fixed; right:16px; bottom:16px; display:flex; gap:10px;}
+.fab{width:56px; height:56px; border-radius:18px; display:grid; place-items:center;
+  background:#132744; border:1px solid rgba(255,255,255,.1); box-shadow:var(--shadow);
+  cursor:pointer; transition:.2s;}
 .fab:hover{transform:translateY(-3px)}
-.fab::after{
-  content:attr(data-tip); position:absolute; right:64px; bottom:8px; background:#061021;
-  border:1px solid rgba(255,255,255,.12); color:var(--white); padding:8px 10px;
-  border-radius:10px; font-size:12px; white-space:nowrap; display:none;
-}
-.fab:hover::after{display:block}
-
-footer{max-width:1200px; margin:30px auto; padding:0 18px; color:var(--muted); text-align:center}
-a{color:var(--teal); text-decoration:none}
+footer{text-align:center; font-size:18px; color:var(--teal); margin:50px 0;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="nav">
-    <div class="brand"><b>LeioTech Store</b><span style="color:var(--muted)">/ productos</span></div>
-    <button class="cart-btn" id="btnCart">🛒 Carrito <span class="badge" id="badge">0</span></button>
-  </div>
+  <b>LeioTech Store</b>
+  <button class="cart-btn" id="btnCart">🛒 Carrito <span class="badge" id="badge">0</span></button>
 </header>
 
 <main>
@@ -152,24 +121,25 @@ a{color:var(--teal); text-decoration:none}
   <div class="grid" id="grid"></div>
 </main>
 
-<footer>Hecho con 💙 por Leonardo Díaz · <a href="https://github.com/LeioData" target="_blank" rel="noopener">GitHub</a></footer>
+<footer>LeioTech Store 💙</footer>
 
-<!-- Modal Detalle de producto -->
+<!-- Modal Producto -->
 <div class="modal" id="mdDetail">
-  <div class="sheet" role="dialog" aria-modal="true">
+  <div class="sheet">
     <div class="sheet-head">
-      <div class="sheet-title" id="detailTitle">Detalle</div>
-      <button class="x" onclick="closeDetail()">✕</button>
+      <span id="detailTitle"></span>
+      <button class="btn" onclick="closeDetail()">✕</button>
     </div>
     <div class="sheet-body">
       <div class="detail">
         <div class="gallery">
-          <img id="hero" class="hero" src="" alt="">
-          <div class="thumbs" id="thumbs"></div>
+          <button class="arrow left" onclick="prevImg()">⬅</button>
+          <img id="hero" src="" alt="">
+          <button class="arrow right" onclick="nextImg()">➡</button>
         </div>
         <div class="info">
           <h3 id="dName"></h3>
-          <small id="dDesc"></small>
+          <p id="dDesc"></p>
           <ul id="dFeats"></ul>
           <div class="price" id="dPrice"></div>
           <div class="actions">
@@ -184,19 +154,18 @@ a{color:var(--teal); text-decoration:none}
 
 <!-- Modal Carrito -->
 <div class="modal" id="mdCart">
-  <div class="sheet" role="dialog" aria-modal="true">
+  <div class="sheet">
     <div class="sheet-head">
-      <div class="sheet-title">Tu carrito</div>
-      <button class="x" onclick="closeCart()">✕</button>
+      <span>Tu carrito</span>
+      <button class="btn" onclick="closeCart()">✕</button>
     </div>
     <div class="sheet-body">
       <div class="list" id="list"></div>
-
       <form class="form" id="checkoutForm">
         <input id="inpNombre" placeholder="Tu nombre completo" required>
         <input id="inpCorreo" type="email" placeholder="Correo" required>
-        <input id="inpFono" type="tel" placeholder="WhatsApp (9xxxxxxxx)" required pattern="9[0-9]{8}">
-        <div class="helper">Al finalizar, se registrará tu pedido y te llevaremos a WhatsApp con el resumen.</div>
+        <input id="inpFono" type="tel" placeholder="WhatsApp (solo números)" pattern="[0-9]{9}" required>
+        <div class="helper">Se registrará tu pedido y se abrirá WhatsApp con el resumen 💬</div>
         <div class="actions">
           <button type="button" class="btn" onclick="closeCart()">Seguir comprando</button>
           <button type="submit" class="btn primary">Finalizar compra</button>
@@ -206,176 +175,99 @@ a{color:var(--teal); text-decoration:none}
   </div>
 </div>
 
-<!-- FABs -->
+<!-- Botones flotantes -->
 <div class="fabs">
-  <a class="fab" data-tip="Escríbeme por WhatsApp" href="https://wa.me/51945199162" target="_blank" rel="noopener">🟢</a>
-  <a class="fab calendar" data-tip="📅 Agenda una sesión" href="https://calendly.com/leonardoandre1054" target="_blank" rel="noopener">📅</a>
+  <a class="fab" href="https://wa.me/51945199162" target="_blank" title="WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="28" alt="WhatsApp">
+  </a>
+  <a class="fab" href="https://calendly.com/leonardoandre1054" target="_blank" title="Agendar">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Calendar_icon_%282020%29.svg" width="28" alt="Calendario">
+  </a>
 </div>
 
 <script>
-// ---------- Datos ----------
-const PRODUCTS = [
-  {
-    name:"Cable C (1m) Carga Rápida",
-    desc:"Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.",
-    feats:["Longitud 1 m","USB-C a Lightning","Power Delivery","Material TPE flexible y duradero"],
-    price:"S/ 38.00",
-    images:["1A Cable C (1m) Carga Rápida.jpg","1B Cable C (1m) Carga Rápida.jpg"]
-  },
-  {
-    name:"Adaptador de corriente USB-C",
-    desc:"Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.",
-    feats:["Salida 20 W","Puerto USB-C","Compatible con Power Delivery","Diseño compacto y portátil"],
-    price:"S/ 40.00",
-    images:["2A Adaptador de corriente USB-C.jpg","2B Adaptador de corriente USB-C.jpg"]
-  },
-  {
-    name:"Cable USB (1m)",
-    desc:"Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera rápida y segura.",
-    feats:["Longitud 1 m","Lightning a USB-A","Compatibilidad iPhone/iPad/iPod","Alta durabilidad"],
-    price:"S/ 35.00",
-    images:["3A Cable USB (1m).jpg","3B Cable USB (1m).jpg","3C Cable USB (1m).jpg"]
-  },
-  {
-    name:"Cargador USB Portátil",
-    desc:"Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.",
-    feats:["2,600 mAh","Salida 5V/1A","Entrada 5V/0.5A (Micro USB)","Indicador luminoso","Batería de polímero"],
-    price:"S/ 45.00",
-    images:["4A Cargador USB Portatil.jpeg","4B Cargador USB Portatil.jpeg","4C Cargador USB Portatil.jpg"]
-  }
+const PRODUCTS=[
+ {name:"Cable C (1m) Carga Rápida",desc:"Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos.",feats:["Longitud 1 m","USB-C a Lightning","Power Delivery","Material TPE flexible y duradero"],price:"S/ 38.00",images:["1A Cable C (1m) Carga Rápida.jpg","1B Cable C (1m) Carga Rápida.jpg"]},
+ {name:"Adaptador de corriente USB-C",desc:"Carga tu iPhone o cualquier dispositivo compatible de forma rápida y segura con 20 W.",feats:["Salida 20 W","Puerto USB-C","Power Delivery","Diseño compacto"],price:"S/ 40.00",images:["2A Adaptador de corriente USB-C.jpg","2B Adaptador de corriente USB-C.jpg"]},
+ {name:"Cable USB (1m)",desc:"Conecta y sincroniza tu iPhone o iPad con puerto Lightning.",feats:["Longitud 1 m","Lightning a USB-A","Alta durabilidad"],price:"S/ 35.00",images:["3A Cable USB (1m).jpg","3B Cable USB (1m).jpg"]},
+ {name:"Cargador USB Portátil",desc:"Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh.",feats:["2,600 mAh","Salida 5V/1A","Batería polímero"],price:"S/ 45.00",images:["4A Cargador USB Portatil.jpeg","4B Cargador USB Portatil.jpeg"]}
 ];
 
-// ---------- Render de tarjetas ----------
-const grid = document.getElementById('grid');
-PRODUCTS.forEach((p,idx)=>{
-  const el = document.createElement('article');
-  el.className = 'card';
-  el.innerHTML = `
-    <img src="./imagenes/${p.images[0]}" alt="${p.name}">
-    <div class="box">
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="price">${p.price}</div>
-      <div class="actions">
-        <button class="btn" onclick="openDetail(${idx})">Ver</button>
-        <button class="btn primary" onclick="addToCart(${idx})">🛒 Agregar</button>
-      </div>
-    </div>`;
+const grid=document.getElementById("grid");
+PRODUCTS.forEach((p,i)=>{
+  const el=document.createElement("article");
+  el.className="card";
+  el.innerHTML=`<img src="./imagenes/${p.images[0]}" alt="${p.name}">
+  <div class="box"><h3>${p.name}</h3><p>${p.desc}</p><div class="price">${p.price}</div></div>`;
+  el.onclick=()=>openDetail(i);
   grid.appendChild(el);
 });
 
-// ---------- Estado carrito ----------
-const badge = document.getElementById('badge');
-let CART = [];
-
-function addToCart(i){
-  CART.push({ idx:i, name:PRODUCTS[i].name, img:PRODUCTS[i].images[0] });
-  badge.textContent = CART.length;
-  alert('✅ Agregado: ' + PRODUCTS[i].name);
-}
-
-// ---------- Modal Detalle ----------
-const mdDetail = document.getElementById('mdDetail');
-const dName = document.getElementById('dName');
-const dDesc = document.getElementById('dDesc');
-const dFeats = document.getElementById('dFeats');
-const dPrice = document.getElementById('dPrice');
-const hero = document.getElementById('hero');
-const thumbs = document.getElementById('thumbs');
-const btnAdd = document.getElementById('btnAdd');
-
-let CURRENT_INDEX = null;
+// detalle
+let CURRENT_INDEX=null,CURRENT_IMG=0;
+const mdDetail=document.getElementById("mdDetail"),hero=document.getElementById("hero"),thumbs=document.getElementById("thumbs"),
+dName=document.getElementById("dName"),dDesc=document.getElementById("dDesc"),dFeats=document.getElementById("dFeats"),
+dPrice=document.getElementById("dPrice"),btnAdd=document.getElementById("btnAdd");
 
 function openDetail(i){
-  CURRENT_INDEX = i;
-  const p = PRODUCTS[i];
-  document.getElementById('detailTitle').textContent = p.name;
-  dName.textContent = p.name;
-  dDesc.textContent = p.desc;
-  dFeats.innerHTML = p.feats.map(f=>`<li>${f}</li>`).join('');
-  dPrice.textContent = p.price;
-  hero.src = './imagenes/' + p.images[0];
-  thumbs.innerHTML = '';
-  p.images.forEach(src=>{
-    const im = document.createElement('img');
-    im.src = './imagenes/' + src;
-    im.alt = p.name;
-    im.onclick = ()=> hero.src = im.src;
-    thumbs.appendChild(im);
-  });
-  btnAdd.onclick = ()=>{ addToCart(i); closeDetail(); };
-  mdDetail.classList.add('show');
+  CURRENT_INDEX=i; CURRENT_IMG=0;
+  const p=PRODUCTS[i];
+  document.getElementById("detailTitle").textContent=p.name;
+  dName.textContent=p.name; dDesc.textContent=p.desc;
+  dFeats.innerHTML=p.feats.map(f=>`<li>${f}</li>`).join('');
+  dPrice.textContent=p.price; hero.src='./imagenes/'+p.images[0];
+  btnAdd.onclick=()=>{addToCart(i); closeDetail()};
+  mdDetail.classList.add("show");
 }
-function closeDetail(){ mdDetail.classList.remove('show'); }
-
-// ---------- Modal Carrito ----------
-const mdCart = document.getElementById('mdCart');
-const btnCart = document.getElementById('btnCart');
-const list = document.getElementById('list');
-
-btnCart.onclick = openCart;
-function openCart(){
-  renderCart();
-  mdCart.classList.add('show');
+function closeDetail(){mdDetail.classList.remove("show")}
+function nextImg(){
+  const imgs=PRODUCTS[CURRENT_INDEX].images;
+  CURRENT_IMG=(CURRENT_IMG+1)%imgs.length;
+  hero.src='./imagenes/'+imgs[CURRENT_IMG];
 }
-function closeCart(){ mdCart.classList.remove('show'); }
+function prevImg(){
+  const imgs=PRODUCTS[CURRENT_INDEX].images;
+  CURRENT_IMG=(CURRENT_IMG-1+imgs.length)%imgs.length;
+  hero.src='./imagenes/'+imgs[CURRENT_IMG];
+}
 
+// carrito
+let CART=[];
+const badge=document.getElementById("badge"),mdCart=document.getElementById("mdCart"),list=document.getElementById("list");
+function addToCart(i){
+  CART.push({idx:i,name:PRODUCTS[i].name,img:PRODUCTS[i].images[0]});
+  badge.textContent=CART.length;
+  alert("✅ Agregado: "+PRODUCTS[i].name);
+}
+document.getElementById("btnCart").onclick=openCart;
+function openCart(){renderCart();mdCart.classList.add("show")}
+function closeCart(){mdCart.classList.remove("show")}
 function renderCart(){
-  if(CART.length===0){
-    list.innerHTML = `<div style="color:#a9c1db">Tu carrito está vacío 🛒</div>`;
-    return;
-  }
-  list.innerHTML = CART.map((it,ix)=>`
-    <div class="item">
-      <img src="./imagenes/${it.img}" alt="${it.name}">
-      <div>
-        <b>${it.name}</b>
-        <small style="color:#9ab6d6">LeioTech Store</small>
-      </div>
-      <div class="k"><button onclick="removeItem(${ix})">Quitar</button></div>
-    </div>
-  `).join('');
+  if(CART.length===0){list.innerHTML="<div style='color:#a9c1db'>Tu carrito está vacío 🛒</div>";return;}
+  list.innerHTML=CART.map((it,ix)=>`
+  <div class="item">
+    <img src="./imagenes/${it.img}" alt="${it.name}">
+    <div><b>${it.name}</b><small style="color:#9ab6d6">LeioTech Store</small></div>
+    <div class="k"><button onclick="removeItem(${ix})">Quitar</button></div>
+  </div>`).join('');
 }
-function removeItem(ix){
-  CART.splice(ix,1);
-  badge.textContent = CART.length;
-  renderCart();
-}
+function removeItem(ix){CART.splice(ix,1);badge.textContent=CART.length;renderCart();}
 
-// ---------- Checkout (Sheets + WhatsApp) ----------
-const FORM = document.getElementById('checkoutForm');
-FORM.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  if(CART.length===0){ alert('Tu carrito está vacío 🛒'); return; }
-
-  const nombre = document.getElementById('inpNombre').value.trim();
-  const correo = document.getElementById('inpCorreo').value.trim();
-  const fono   = document.getElementById('inpFono').value.trim();
-
-  // Lista solo de NOMBRES (sin precios)
-  const names = CART.map(x=>x.name).join(', ');
-
-  // 1) Registrar en Google Sheets
-  try{
-    await fetch("https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec",{
-      method:"POST",
-      mode:"no-cors",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({
-        nombre:nombre, correo:correo, telefono:fono,
-        producto:names, precio:"", metodo:"WhatsApp"
-      })
-    });
-  }catch(err){ console.warn('No se pudo registrar en Sheets (continuo a WhatsApp):', err); }
-
-  // 2) Abrir WhatsApp con mensaje prellenado
-  const msg = `Hola 👋, estoy interesado en estos productos: ${names}`;
-  window.open(`https://wa.me/51945199162?text=${encodeURIComponent(msg)}`,'_blank');
-
-  // 3) Cerrar modal, limpiar carrito
-  closeCart();
-  CART = []; badge.textContent = 0;
-  FORM.reset();
+// checkout
+document.getElementById("checkoutForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(CART.length===0){alert("Tu carrito está vacío 🛒");return;}
+ const nombre=inpNombre.value.trim(),correo=inpCorreo.value.trim(),fono=inpFono.value.trim();
+ const names=CART.map(x=>x.name).join(', ');
+ try{
+  await fetch("https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec",{
+   method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({nombre,correo,telefono:fono,producto:names})
+  });
+ }catch(err){console.warn(err)}
+ const msg=`Hola 👋, estoy interesado en estos productos: ${names}`;
+ window.open(`https://wa.me/51945199162?text=${encodeURIComponent(msg)}`,'_blank');
+ closeCart(); CART=[]; badge.textContent=0; e.target.reset();
 });
 </script>
 </body>
