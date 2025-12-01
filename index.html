@@ -32,7 +32,6 @@
         linear-gradient(160deg, #0A192F 0%, #0B1B33 60%, #0A192F 100%);
       background-attachment: fixed;
     }
-    /* Header simple */
     .header{
       max-width: 1200px;
       margin: 24px auto 0;
@@ -72,7 +71,6 @@
     .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
     .card p{margin:0 0 10px; color:#cfe7ffad}
     .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
-    /* Nuevo: cantidad producto popup y carrito */
     .product-qty-box, .cart-qty-box{
       display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
       background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
@@ -85,7 +83,6 @@
     .cart-item>.cart-qty-box{margin-left:0;}
     .cart-qty-box input[type="number"]{width:32px;}
     .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
-    /* Modal producto */
     .modal{
       position: fixed; inset:0; z-index:500;
       display:none; align-items:center; justify-content:center;
@@ -282,13 +279,13 @@
     </div>
   </div>
   <div class="fabs">
-    <a class="fab" href="https://wa.me/51913004414?text=Hola%20%F0%9F%91%8B%2C%20estoy%20interesado%20en%20tus%20productos." target="_blank" rel="noopener">
+    <!-- Puedes reemplazar el contenido del .fab por el emoji que más te guste -->
+    <a class="fab" href="https://wa.me/51913004414?text=Hola%20estoy%20interesado%20en%20tus%20productos." target="_blank" rel="noopener">
       <span class="tooltip">Chatea conmigo por WhatsApp</span>
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f1.svg" alt="" style="display:none">
-      <img src="https://raw.githubusercontent.com/VDIGITALPE/cdn-static/main/icons/whatsapp-green.svg" alt="WhatsApp"/>
+      <span style="font-size:32px;">💬</span>
     </a>
     <a class="fab" href="https://calendly.com/leonardoandre1054" target="_blank" rel="noopener" title="Agenda una sesión conmigo">
-      <img src="https://raw.githubusercontent.com/VDIGITALPE/cdn-static/main/icons/calendar-apple-like.svg" alt="Calendario"/>
+      <span style="font-size:32px;">📅</span>
     </a>
   </div>
   <footer class="mini">LeioTech Store</footer>
@@ -396,7 +393,7 @@
       if(!currentProduct) return;
       let found = cart.find(i=>i.id===currentProduct.id);
       if(found){
-        found.qty += currentQty; // se suma la cantidad seleccionada
+        found.qty += currentQty;
       }else{
         cart.push({
           id:currentProduct.id,
@@ -455,11 +452,13 @@
     const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
     const finalizarBtn = document.getElementById('finalizar');
     function listaBullets(){
-      return cart.map(i => `- ${i.nombre} (x${i.qty})`).join('\n');
+      // Solo el nombre de cada producto, como bullets
+      return cart.map(i => `- ${i.nombre}`).join('\n');
     }
     function buildWhatsAppURL(nombre){
       const numero = "51913004414";
-      const msg = `Hola 👋🏼, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta🙌🏼.`;
+      // Mensaje editado según el pedido, sin paréntesis, sin emojis, limpio como solicitaste
+      const msg = `Hola! Soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta.`;
       return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
     finalizarBtn.onclick = async ()=>{
