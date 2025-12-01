@@ -70,23 +70,49 @@
     .card .body{padding:16px 16px 18px}
     .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
     .card p{margin:0 0 10px; color:#cfe7ffad}
-    .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+    /* NOTORIOS: caja precio y cantidad (pill, borde fuerte, sombra) */
+    .price-box, .qty-box-visual {
+      display: inline-block;
+      background: #13253c;
+      border: 3px solid #1fffc9;
+      color: #1fffc9;
+      font-size: 21px;
+      font-weight: bold;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px #1fffc966, 0 0 0 4px #06202466;
+      padding: 6px 20px;
+      margin-right: 20px;
+      letter-spacing: 0.02em;
+      vertical-align: middle;
+    }
     .product-qty-box, .cart-qty-box{
-      display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
-      background:rgba(33,48,84,0.10);
-      border-radius:10px;
-      border:2px solid #41e6c6dd;
-      box-shadow: 0 2px 8px #0c2b2f11;
-      padding:2px 7px;
-      transition: border .3s;
+      background: #102133;
+      border: 3px solid #34fff2;
+      color: #34fff2;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px #34fff233, 0 0 0 4px #06202430;
+      font-size: 20px;
+      font-weight: bold;
+      min-width: 80px;
+      justify-content: center;
+      padding: 2px 10px;
+      margin-left: 0;
     }
-    .qty-btn{
-      border:none; background:none; color:var(--teal); font-size:22px; padding:2px 6px; border-radius:7px;
-      cursor:pointer; font-weight:700; line-height:1; transition:background .2s;
+    .qty-btn {
+      color: #39ffc7;
+      font-size: 26px;
+      font-weight: bold;
+      transition: background .15s, color .15s;
+      border: none; background: none; padding: 2px 9px; border-radius: 8px; cursor: pointer;
     }
-    .qty-btn:active{background:rgba(76,255,204,.12);}
+    .qty-btn:hover {
+      background: #222f2f;
+      color: #00f1c0;
+    }
+    .qty-btn:active { background: #32fbd420; }
     .cart-item>.cart-qty-box{margin-left:0;}
     .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
+    /* Modal producto */
     .modal{
       position: fixed; inset:0; z-index:500;
       display:none; align-items:center; justify-content:center;
@@ -245,9 +271,9 @@
           <h2 id="mName"></h2>
           <p id="mDesc"></p>
           <ul id="mFeat"></ul>
-          <div>
-            <span class="price" id="mPrice"></span>
-            <span class="product-qty-box">
+          <div style="margin-top:18px;">
+            <span class="price-box" id="mPrice"></span>
+            <span class="product-qty-box qty-box-visual">
               <button class="qty-btn" id="qtyDec">-</button>
               <span id="qtyNumber">1</span>
               <button class="qty-btn" id="qtyInc">+</button>
@@ -307,7 +333,7 @@
         <div class="body">
           <h3>${p.nombre}</h3>
           <p>${p.descripcion}</p>
-          <div class="price">S/ ${p.precio.toFixed(2)}</div>
+          <div class="price-box">S/ ${p.precio.toFixed(2)}</div>
         </div>
       </article>`
     ).join('');
@@ -424,12 +450,12 @@
           <img src="${encodeURI(i.img)}" alt="">
           <div>
             <b>${i.nombre}</b>
-            <div class="cart-qty-box">
+            <div class="cart-qty-box qty-box-visual">
               <button class="qty-btn cart-minus" data-id="${i.id}">-</button>
               <span>${i.qty}</span>
               <button class="qty-btn cart-plus" data-id="${i.id}">+</button>
             </div>
-            <div class="cart-line-total">S/ ${(i.precio*i.qty).toFixed(2)}</div>
+            <div class="price-box cart-line-total">S/ ${(i.precio*i.qty).toFixed(2)}</div>
           </div>
           <button class="rm" data-id="${i.id}">Quitar</button>
         </div>
@@ -460,7 +486,7 @@
     }
     function buildWhatsAppURL(nombre){
       const numero = "51913004414";
-      // Solo emojis básicos para máxima compatibilidad con WhatsApp
+      // Usa solo emojis universales
       const msg = `Hola 👋, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta 🙌.`;
       return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
