@@ -4,213 +4,213 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LeioTech Store</title>
-  <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-  :root{
-    --blue-900:#0A192F;
-    --blue-800:#112240;
-    --teal:#64FFDA;
-    --neon:#00ffcc;
-    --white:#E6F1FF;
-    --muted:#94A3B8;
-    --card: rgba(17,34,64,.85);
-    --shadow: 0 20px 50px rgba(0,0,0,.35);
-    --soft: 0 10px 30px rgba(0,0,0,.25);
-    --radius:18px;
-    /* Botón resaltado */
-    --live-btn-bg: linear-gradient(88deg, #2afadf 5%, #14c388 95%);
-    --live-btn-glow: 0 0 16px #14c38888, 0 0 6px #34e8c4bb;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
-    color:var(--white);
-    background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(100,255,218,.10), transparent 60%),
-      radial-gradient(900px 400px at 10% 110%, rgba(100,255,218,.08), transparent 60%),
-      linear-gradient(160deg, #0A192F 0%, #0B1B33 60%, #0A192F 100%);
-    background-attachment: fixed;
-  }
-  /* Header simple */
-  .header{
-    max-width: 1200px;
-    margin: 24px auto 0;
-    padding: 0 18px 8px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom: 1px solid rgba(100,255,218,.18);
-  }
-  .logo{font-weight:800; letter-spacing:.3px; color:var(--teal)}
-  .brand{display:flex; gap:10px; align-items:center}
-  .brand small{color:#8fb3b3}
-  /* Grid 2 columnas */
-  .wrap{max-width:1200px; margin: 24px auto 120px; padding: 0 18px;}
-  .title{display:flex; gap:10px; align-items:center; margin: 16px 0 18px}
-  .title i{filter: drop-shadow(0 6px 20px rgba(0,0,0,.35))}
-  .grid{
-    display:grid;
-    gap:20px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  @media (max-width:900px){
-    .grid{grid-template-columns: 1fr;}
-  }
-  /* Card */
-  .card{
-    background:var(--card);
-    border:1px solid rgba(100,255,218,.22);
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:var(--soft);
-    transition:.25s ease;
-    cursor:pointer;
-  }
-  .card:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
-  .card figure{margin:0; height:260px; background:#071225; overflow:hidden}
-  .card img{width:100%; height:100%; object-fit:cover; display:block; filter: saturate(1.05) contrast(1.03)}
-  .card .body{padding:16px 16px 18px}
-  .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
-  .card p{margin:0 0 10px; color:#cfe7ffad}
-  .price{font-weight:800; letter-spacing:.3px}
-
-  /* Modal producto */
-  .modal{
-    position: fixed; inset:0; z-index:500;
-    display:none; align-items:center; justify-content:center;
-    background: rgba(3,8,20,.55); backdrop-filter: blur(6px);
-    padding: 24px;
-  }
-  .modal.show{display:flex}
-  .modal-card{
-    width:min(1050px, 96vw);
-    background:var(--card);
-    border:1px solid rgba(100,255,218,.25);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-  }
-  .modal-head{
-    padding:14px 16px; border-bottom:1px solid rgba(100,255,218,.18);
-    display:flex; align-items:center; justify-content:space-between; font-weight:800;
-  }
-  .x{all:unset; cursor:pointer; font-size:22px; line-height:1; padding:6px 10px; border-radius:10px}
-  .x:hover{background:rgba(255,255,255,.06)}
-  .modal-body{
-    display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:18px;
-  }
-  @media (max-width:900px){
-    .modal-body{grid-template-columns:1fr}
-  }
-  .viewer{
-    position:relative; background:#071225; border-radius:16px; overflow:hidden;
-    min-height: 440px; display:grid; place-items:center;
-    border:1px solid rgba(100,255,218,.14)
-  }
-  .viewer img{max-width:100%; max-height:430px; display:block; object-fit:contain}
-  /* Flechas neón */
-  .nav-arrow{
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
-    cursor:pointer; border:1px solid rgba(0,255,204,.6);
-    background: radial-gradient(60% 60% at 50% 50%, rgba(0,255,204,.18), rgba(0,255,204,.04));
-    box-shadow: 0 0 25px rgba(0,255,204,.22), inset 0 0 10px rgba(0,255,204,.15);
-    transition: .2s ease; color:var(--neon); font-weight:900; user-select:none;
-  }
-  .nav-arrow:hover{transform: translateY(-50%) scale(1.05); box-shadow:0 0 35px rgba(0,255,204,.35), inset 0 0 14px rgba(0,255,204,.22)}
-  .nav-prev{left:10px}
-  .nav-next{right:10px}
-  .desc h2{margin:4px 0 8px; color:var(--teal)}
-  .desc p{margin:0 0 10px; color:#cfe7ffcc}
-  .desc ul{margin:10px 0 16px 18px}
-  .desc li{margin:6px 0}
-  .actions{display:flex; gap:12px; align-items:center}
-  .btn{
-    appearance:none;
-    border:1px solid rgba(100,255,218,.55);
-    background: rgba(100,255,218,.10);
-    color:var(--white);
-    padding:10px 14px;
-    border-radius:12px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.2s;
-    outline: none;
-  }
-  .btn:hover{background: rgba(100,255,218,.18)}
-  .btn.primary{
-    background: var(--live-btn-bg);
-    color:#00221e;
-    border-color:transparent;
-    box-shadow: var(--live-btn-glow);
-    position: relative;
-    overflow:hidden;
-    /* Animación pulso */
-    animation: pulseBtn 1.4s infinite cubic-bezier(0.4,0,0.2,1);
-  }
-  @keyframes pulseBtn {
-    0%, 100% { box-shadow: var(--live-btn-glow), 0 0 0 0 #64FFDA44; }
-    70% {      box-shadow: var(--live-btn-glow), 0 0 0 16px #03d3c216; }
-  }
-  .btn.primary:hover{
-    background: linear-gradient(90deg, #33fff1 0%, #20ff9d 100%);
-    color:#00927d;
-  }
-  /* Carrito */
-  .cart-fab{
-    position: fixed; top:18px; right:18px; z-index:120;
-    background: rgba(100,255,218,.12); color:var(--teal);
-    border:1px solid rgba(100,255,218,.4); padding:8px 12px; border-radius:12px;
-    font-weight:800; cursor:pointer;
-    transition: .1s;
-  }
-  /* Efecto vibrar */
-  .cart-fab.vibrate{
-    animation: vibrateCart .34s linear;
-  }
-  @keyframes vibrateCart{
-    0%,100%{transform:translate(0,0)}
-    20%{transform:translate(-2px,2px)}
-    36%{transform:translate(2px,-2px)}
-    48%{transform:translate(-1px,2px)}
-    62%{transform:translate(2px,1px)}
-    78%{transform:translate(-2px,-1px)}
-  }
-  .cart-modal .modal-body{grid-template-columns:1fr}
-  .cart-item{display:grid; grid-template-columns: 64px 1fr auto; gap:12px; align-items:center; background:#0c1e38; border:1px solid rgba(100,255,218,.12); padding:10px; border-radius:12px}
-  .cart-item img{width:64px; height:64px; object-fit:cover; border-radius:10px; border:1px solid rgba(100,255,218,.16)}
-  .cart-item b{color:var(--white)}
-  .rm{all:unset; cursor:pointer; color:#ff9aa7}
-  .form{display:grid; gap:10px; margin-top:14px}
-  .form .resume{font-weight:600; font-size:15px; color:#7df7d6; letter-spacing:.4px; margin-bottom:4px;}
-  .input{
-    width:100%; padding:12px 12px; border-radius:12px;
-    color:var(--white); background:#091731;
-    border:1px solid rgba(100,255,218,.16); outline:none;
-  }
-  .input:focus{border-color:rgba(100,255,218,.45)}
-  .hint{color:#9fb8cf; font-size:13px}
-  /* FABs flotantes */
-  .fabs{position: fixed; right:18px; bottom:18px; display:flex; gap:14px; z-index:130}
-  .fab{
-    width:56px; height:56px; border-radius:18px; display:grid; place-items:center;
-    background:#0c1e38; border:1px solid rgba(100,255,218,.25); box-shadow: var(--soft);
-    cursor:pointer; position:relative; transition:.2s;
-  }
-  .fab:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
-  .fab img{width:28px; height:28px}
-  .tooltip{
-    position:absolute; right:70px; top:50%; transform:translateY(-50%);
-    padding:10px 12px; border-radius:12px; background:#08152b;
-    border:1px solid rgba(100,255,218,.25); color:var(--white);
-    font-size:14px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s;
-  }
-  .fab:hover .tooltip{opacity:1}
-  /* Footer mini */
-  .mini{max-width:1200px; margin: 28px auto 80px; padding:0 18px; text-align:center; color:#cfe7ffbd}
+    :root{
+      --blue-900:#0A192F;
+      --blue-800:#112240;
+      --teal:#64FFDA;
+      --neon:#00ffcc;
+      --white:#E6F1FF;
+      --muted:#94A3B8;
+      --card: rgba(17,34,64,.85);
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --soft: 0 10px 30px rgba(0,0,0,.25);
+      --radius:18px;
+      --live-btn-bg: linear-gradient(88deg, #2afadf 5%, #14c388 95%);
+      --live-btn-glow: 0 0 16px #14c38888, 0 0 6px #34e8c4bb;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--white);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(100,255,218,.10), transparent 60%),
+        radial-gradient(900px 400px at 10% 110%, rgba(100,255,218,.08), transparent 60%),
+        linear-gradient(160deg, #0A192F 0%, #0B1B33 60%, #0A192F 100%);
+      background-attachment: fixed;
+    }
+    /* Header simple */
+    .header{
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding: 0 18px 8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom: 1px solid rgba(100,255,218,.18);
+    }
+    .logo{font-weight:800; letter-spacing:.3px; color:var(--teal)}
+    .brand{display:flex; gap:10px; align-items:center}
+    .brand small{color:#8fb3b3}
+    .wrap{max-width:1200px; margin: 24px auto 120px; padding: 0 18px;}
+    .title{display:flex; gap:10px; align-items:center; margin: 16px 0 18px}
+    .title i{filter: drop-shadow(0 6px 20px rgba(0,0,0,.35))}
+    .grid{
+      display:grid;
+      gap:20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width:900px){
+      .grid{grid-template-columns: 1fr;}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(100,255,218,.22);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:var(--soft);
+      transition:.25s ease;
+      cursor:pointer;
+    }
+    .card:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
+    .card figure{margin:0; height:260px; background:#071225; overflow:hidden}
+    .card img{width:100%; height:100%; object-fit:cover; display:block; filter: saturate(1.05) contrast(1.03)}
+    .card .body{padding:16px 16px 18px}
+    .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
+    .card p{margin:0 0 10px; color:#cfe7ffad}
+    .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+    /* Nuevo: cantidad producto popup y carrito */
+    .product-qty-box, .cart-qty-box{
+      display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
+      background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
+    }
+    .qty-btn{
+      border:none; background:none; color:var(--teal); font-size:22px; padding:2px 6px; border-radius:7px;
+      cursor:pointer; font-weight:700; line-height:1; transition:background .2s;
+    }
+    .qty-btn:active{background:rgba(76,255,204,.12);}
+    .cart-item>.cart-qty-box{margin-left:0;}
+    .cart-qty-box input[type="number"]{width:32px;}
+    .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
+    /* Modal producto */
+    .modal{
+      position: fixed; inset:0; z-index:500;
+      display:none; align-items:center; justify-content:center;
+      background: rgba(3,8,20,.55); backdrop-filter: blur(6px);
+      padding: 24px;
+    }
+    .modal.show{display:flex}
+    .modal-card{
+      width:min(1050px, 96vw);
+      background:var(--card);
+      border:1px solid rgba(100,255,218,.25);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 16px; border-bottom:1px solid rgba(100,255,218,.18);
+      display:flex; align-items:center; justify-content:space-between; font-weight:800;
+    }
+    .x{all:unset; cursor:pointer; font-size:22px; line-height:1; padding:6px 10px; border-radius:10px}
+    .x:hover{background:rgba(255,255,255,.06)}
+    .modal-body{
+      display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:18px;
+    }
+    @media (max-width:900px){
+      .modal-body{grid-template-columns:1fr}
+    }
+    .viewer{
+      position:relative; background:#071225; border-radius:16px; overflow:hidden;
+      min-height: 440px; display:grid; place-items:center;
+      border:1px solid rgba(100,255,218,.14)
+    }
+    .viewer img{max-width:100%; max-height:430px; display:block; object-fit:contain}
+    .nav-arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+      cursor:pointer; border:1px solid rgba(0,255,204,.6);
+      background: radial-gradient(60% 60% at 50% 50%, rgba(0,255,204,.18), rgba(0,255,204,.04));
+      box-shadow: 0 0 25px rgba(0,255,204,.22), inset 0 0 10px rgba(0,255,204,.15);
+      transition: .2s ease; color:var(--neon); font-weight:900; user-select:none;
+    }
+    .nav-arrow:hover{transform: translateY(-50%) scale(1.05); box-shadow:0 0 35px rgba(0,255,204,.35), inset 0 0 14px rgba(0,255,204,.22)}
+    .nav-prev{left:10px}
+    .nav-next{right:10px}
+    .desc h2{margin:4px 0 8px; color:var(--teal)}
+    .desc p{margin:0 0 10px; color:#cfe7ffcc}
+    .desc ul{margin:10px 0 16px 18px}
+    .desc li{margin:6px 0}
+    .actions{display:flex; gap:12px; align-items:center}
+    .btn{
+      appearance:none;
+      border:1px solid rgba(100,255,218,.55);
+      background: rgba(100,255,218,.10);
+      color:var(--white);
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+      outline: none;
+    }
+    .btn:hover{background: rgba(100,255,218,.18)}
+    .btn.primary{
+      background: var(--live-btn-bg);
+      color:#00221e;
+      border-color:transparent;
+      box-shadow: var(--live-btn-glow);
+      position: relative;
+      overflow:hidden;
+      animation: pulseBtn 1.4s infinite cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: var(--live-btn-glow), 0 0 0 0 #64FFDA44; }
+      70% {      box-shadow: var(--live-btn-glow), 0 0 0 16px #03d3c216; }
+    }
+    .btn.primary:hover{
+      background: linear-gradient(90deg, #33fff1 0%, #20ff9d 100%);
+      color:#00927d;
+    }
+    .cart-fab{
+      position: fixed; top:18px; right:18px; z-index:120;
+      background: rgba(100,255,218,.12); color:var(--teal);
+      border:1px solid rgba(100,255,218,.4); padding:8px 12px; border-radius:12px;
+      font-weight:800; cursor:pointer;
+      transition: .1s;
+    }
+    .cart-fab.vibrate{animation: vibrateCart .34s linear;}
+    @keyframes vibrateCart{
+      0%,100%{transform:translate(0,0)}
+      20%{transform:translate(-2px,2px)}
+      36%{transform:translate(2px,-2px)}
+      48%{transform:translate(-1px,2px)}
+      62%{transform:translate(2px,1px)}
+      78%{transform:translate(-2px,-1px)}
+    }
+    .cart-modal .modal-body{grid-template-columns:1fr}
+    .cart-item{display:grid; grid-template-columns: 64px 1fr auto; gap:12px; align-items:center; background:#0c1e38; border:1px solid rgba(100,255,218,.12); padding:10px; border-radius:12px}
+    .cart-item img{width:64px; height:64px; object-fit:cover; border-radius:10px; border:1px solid rgba(100,255,218,.16)}
+    .cart-item b{color:var(--white)}
+    .rm{all:unset; cursor:pointer; color:#ff9aa7}
+    .form{display:grid; gap:10px; margin-top:14px}
+    .form .resume{font-weight:600; font-size:15px; color:#7df7d6; letter-spacing:.4px; margin-bottom:4px;}
+    .input{
+      width:100%; padding:12px 12px; border-radius:12px;
+      color:var(--white); background:#091731;
+      border:1px solid rgba(100,255,218,.16); outline:none;
+    }
+    .input:focus{border-color:rgba(100,255,218,.45)}
+    .hint{color:#9fb8cf; font-size:13px}
+    .fabs{position: fixed; right:18px; bottom:18px; display:flex; gap:14px; z-index:130}
+    .fab{
+      width:56px; height:56px; border-radius:18px; display:grid; place-items:center;
+      background:#0c1e38; border:1px solid rgba(100,255,218,.25); box-shadow: var(--soft);
+      cursor:pointer; position:relative; transition:.2s;
+    }
+    .fab:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
+    .fab img{width:28px; height:28px}
+    .tooltip{
+      position:absolute; right:70px; top:50%; transform:translateY(-50%);
+      padding:10px 12px; border-radius:12px; background:#08152b;
+      border:1px solid rgba(100,255,218,.25); color:var(--white);
+      font-size:14px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s;
+    }
+    .fab:hover .tooltip{opacity:1}
+    .mini{max-width:1200px; margin: 28px auto 80px; padding:0 18px; text-align:center; color:#cfe7ffbd}
   </style>
 </head>
 <body>
@@ -244,7 +244,14 @@
           <h2 id="mName"></h2>
           <p id="mDesc"></p>
           <ul id="mFeat"></ul>
-          <div class="price" id="mPrice"></div>
+          <div>
+            <span class="price" id="mPrice"></span>
+            <span class="product-qty-box">
+              <button class="qty-btn" id="qtyDec">-</button>
+              <span id="qtyNumber">1</span>
+              <button class="qty-btn" id="qtyInc">+</button>
+            </span>
+          </div>
           <div class="actions" style="margin-top:12px">
             <button class="btn" id="mClose2">Cerrar</button>
             <button class="btn primary" id="btnAdd">➕ Agregar al carrito</button>
@@ -274,7 +281,6 @@
       </div>
     </div>
   </div>
-  <!-- FABs -->
   <div class="fabs">
     <a class="fab" href="https://wa.me/51913004414?text=Hola%20%F0%9F%91%8B%2C%20estoy%20interesado%20en%20tus%20productos." target="_blank" rel="noopener">
       <span class="tooltip">Chatea conmigo por WhatsApp</span>
@@ -287,239 +293,201 @@
   </div>
   <footer class="mini">LeioTech Store</footer>
   <script>
-  /* ======== DATA (productos) ======== */
-  const productos = [
-    {
-      id: 'p1',
-      nombre: 'Cable C (1m) Carga Rápida',
-      precio: 38.00,
-      descripcion: 'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.',
-      caracteristicas: ['Longitud 1 m','USB-C a Lightning','Power Delivery','Material TPE flexible y duradero'],
-      imagenes: [
-        'imagenes/1A Cable C (1m) Carga Rápida.jpg',
-        'imagenes/1B Cable C (1m) Carga Rápida.jpg'
-      ]
-    },
-    {
-      id: 'p2',
-      nombre: 'Adaptador de corriente USB-C',
-      precio: 40.00,
-      descripcion: 'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.',
-      caracteristicas: ['Salida 20 W','Puerto USB-C','Compatible con Power Delivery','Diseño compacto y portátil'],
-      imagenes: [
-        'imagenes/2A Adaptador de corriente USB-C.jpg',
-        'imagenes/2B Adaptador de corriente USB-C.jpg'
-      ]
-    },
-    {
-      id: 'p3',
-      nombre: 'Cable USB (1m)',
-      precio: 35.00,
-      descripcion: 'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera rápida y segura.',
-      caracteristicas: ['Longitud 1 m','Conector Lightning a USB-A','Compatible con iPhone, iPad y iPod','Material resistente'],
-      imagenes: [
-        'imagenes/3A Cable USB (1m).jpg',
-        'imagenes/3B Cable USB (1m).jpg',
-        'imagenes/3C Cable USB (1m).jpg'
-      ]
-    },
-    {
-      id: 'p4',
-      nombre: 'Cargador USB Portátil',
-      precio: 45.00,
-      descripcion: 'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',
-      caracteristicas: ['Capacidad 2,600 mAh','Salida 5V/1A','Entrada 5V/0.5A (Micro USB)','Batería de polímero','Indicador luminoso de carga'],
-      imagenes: [
-        'imagenes/4A Cargador USB Portatil.jpeg',
-        'imagenes/4B Cargador USB Portatil.jpeg',
-        'imagenes/4C Cargador USB Portatil.jpg'
-      ]
-    }
-  ];
-  /* ======== Render grid (2 por fila) ======== */
-  const grid = document.getElementById('grid');
-  grid.innerHTML = productos.map(p =>
-    `<article class="card" data-id="${p.id}">
-      <figure><img src="${encodeURI(p.imagenes[0])}" alt="${p.nombre}"></figure>
-      <div class="body">
-        <h3>${p.nombre}</h3>
-        <p>${p.descripcion}</p>
-        <div class="price">S/ ${p.precio.toFixed(2)}</div>
-      </div>
-    </article>`
-  ).join('');
-  /* ======== Modal producto ======== */
-  const productModal = document.getElementById('productModal');
-  const mTitle = document.getElementById('mTitle');
-  const mName = document.getElementById('mName');
-  const mDesc = document.getElementById('mDesc');
-  const mFeat = document.getElementById('mFeat');
-  const mPrice = document.getElementById('mPrice');
-  const mImg = document.getElementById('mImg');
-  const mClose = document.getElementById('mClose');
-  const mClose2= document.getElementById('mClose2');
-  const btnAdd = document.getElementById('btnAdd');
-  const prevImg= document.getElementById('prevImg');
-  const nextImg= document.getElementById('nextImg');
-  let currentProduct = null;
-  let currentIndex = 0;
-  function openProduct(p){
-    currentProduct = p;
-    currentIndex = 0;
-    mTitle.textContent = p.nombre;
-    mName.textContent = p.nombre;
-    mDesc.textContent = p.descripcion;
-    mFeat.innerHTML = p.caracteristicas.map(c=>`<li>${c}</li>`).join('');
-    mPrice.textContent = `S/ ${p.precio.toFixed(2)}`;
-    mImg.src = encodeURI(p.imagenes[currentIndex]);
-    productModal.classList.add('show');
-  }
-  function closeProduct(){
-    productModal.classList.remove('show');
-  }
-  function showIdx(idx){
-    if(!currentProduct) return;
-    const total = currentProduct.imagenes.length;
-    currentIndex = (idx+total)%total;
-    mImg.src = encodeURI(currentProduct.imagenes[currentIndex]);
-  }
-  prevImg.onclick = ()=> showIdx(currentIndex-1);
-  nextImg.onclick = ()=> showIdx(currentIndex+1);
-  [mClose, mClose2].forEach(b=> b.onclick = closeProduct);
-  productModal.addEventListener('click', e=>{
-    if(e.target===productModal) closeProduct();
-  });
-  grid.addEventListener('click', e=>{
-    const card = e.target.closest('.card');
-    if(!card) return;
-    const id = card.getAttribute('data-id');
-    const p = productos.find(x=>x.id===id);
-    openProduct(p);
-  });
-  /* ======== Carrito ======== */
-  let cart = [];
-  const cartCount = document.getElementById('cartCount');
-  const openCartBtn = document.getElementById('openCart');
-  const cartModal = document.getElementById('cartModal');
-  const cClose = document.getElementById('cClose');
-  const cartItems = document.getElementById('cartItems');
-  const resumeTotal = document.getElementById('resumeTotal');
-  function totalCartAmount(){
-    return cart.reduce((s,i)=>s+i.precio*i.qty,0);
-  }
-  function updateCount(){
-    cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);
-  }
-  function openCart(){
-    cartModal.classList.add('show');
-    renderCart();
-  }
-  function closeCart(){
-    cartModal.classList.remove('show');
-  }
-  openCartBtn.onclick = openCart;
-  cClose.onclick = closeCart;
-  cartModal.addEventListener('click', e=>{
-    if(e.target===cartModal) closeCart();
-  });
-  // Vibrar carrito
-  function vibrateCartFab(){
-    openCartBtn.classList.remove('vibrate');
-    setTimeout(()=> openCartBtn.classList.add('vibrate'),50);
-    setTimeout(()=> openCartBtn.classList.remove('vibrate'), 380);
-  }
-  btnAdd.onclick = ()=>{
-    if(!currentProduct) return;
-    const found = cart.find(i=>i.id===currentProduct.id);
-    if(found) found.qty += 1;
-    else cart.push({
-      id:currentProduct.id,
-      nombre:currentProduct.nombre,
-      precio:currentProduct.precio,
-      img:currentProduct.imagenes[0],
-      qty:1
-    });
-    updateCount();
-    vibrateCartFab();
-    closeProduct();
-    openCart();
-  };
-  function renderCart(){
-    if(cart.length===0){
-      cartItems.innerHTML = '<div class="hint">Tu carrito está vacío.</div>';
-      resumeTotal.textContent = '';
-      resumeTotal.style.display = 'none';
-      return;
-    }
-    cartItems.innerHTML = cart.map(i=>
-      `<div class="cart-item">
-        <img src="${encodeURI(i.img)}" alt="">
-        <div><b>${i.nombre}</b><div style="color:#9db7d0">Cantidad: ${i.qty}</div></div>
-        <button class="rm" data-id="${i.id}">Quitar</button>
-      </div>`
+    const productos = [
+      {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.',caracteristicas:['Longitud 1 m','USB-C a Lightning','Power Delivery','Material TPE flexible y duradero'],imagenes:['imagenes/1A Cable C (1m) Carga Rápida.jpg','imagenes/1B Cable C (1m) Carga Rápida.jpg']},
+      {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.',caracteristicas:['Salida 20 W','Puerto USB-C','Compatible con Power Delivery','Diseño compacto y portátil'],imagenes:['imagenes/2A Adaptador de corriente USB-C.jpg','imagenes/2B Adaptador de corriente USB-C.jpg']},
+      {id:'p3',nombre:'Cable USB (1m)',precio:35.00,descripcion:'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera rápida y segura.',caracteristicas:['Longitud 1 m','Conector Lightning a USB-A','Compatible con iPhone, iPad y iPod','Material resistente'],imagenes:['imagenes/3A Cable USB (1m).jpg','imagenes/3B Cable USB (1m).jpg','imagenes/3C Cable USB (1m).jpg']},
+      {id:'p4',nombre:'Cargador USB Portátil',precio:45.00,descripcion:'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',caracteristicas:['Capacidad 2,600 mAh','Salida 5V/1A','Entrada 5V/0.5A (Micro USB)','Batería de polímero','Indicador luminoso de carga'],imagenes:['imagenes/4A Cargador USB Portatil.jpeg','imagenes/4B Cargador USB Portatil.jpeg','imagenes/4C Cargador USB Portatil.jpg']}
+    ];
+    const grid = document.getElementById('grid');
+    grid.innerHTML = productos.map(p =>
+      `<article class="card" data-id="${p.id}">
+        <figure><img src="${encodeURI(p.imagenes[0])}" alt="${p.nombre}"></figure>
+        <div class="body">
+          <h3>${p.nombre}</h3>
+          <p>${p.descripcion}</p>
+          <div class="price">S/ ${p.precio.toFixed(2)}</div>
+        </div>
+      </article>`
     ).join('');
-    // Resumen monto total
-    resumeTotal.style.display = 'block';
-    resumeTotal.textContent = `Total a pagar: S/ ${totalCartAmount().toFixed(2)}`;
-  }
-  cartItems.addEventListener('click', e=>{
-    if(e.target.classList.contains('rm')){
-      const id = e.target.getAttribute('data-id');
-      cart = cart.filter(i=>i.id!==id);
-      updateCount();
-      renderCart();
+    const productModal = document.getElementById('productModal');
+    const mTitle = document.getElementById('mTitle');
+    const mName = document.getElementById('mName');
+    const mDesc = document.getElementById('mDesc');
+    const mFeat = document.getElementById('mFeat');
+    const mPrice = document.getElementById('mPrice');
+    const mImg = document.getElementById('mImg');
+    const mClose = document.getElementById('mClose');
+    const mClose2= document.getElementById('mClose2');
+    const btnAdd = document.getElementById('btnAdd');
+    const prevImg= document.getElementById('prevImg');
+    const nextImg= document.getElementById('nextImg');
+    const qtyDec = document.getElementById('qtyDec');
+    const qtyInc = document.getElementById('qtyInc');
+    const qtyNumber = document.getElementById('qtyNumber');
+    let currentProduct = null;
+    let currentIndex = 0;
+    let currentQty = 1;
+    function openProduct(p){
+      currentProduct = p;
+      currentIndex = 0;
+      currentQty = 1;
+      mTitle.textContent = p.nombre;
+      mName.textContent = p.nombre;
+      mDesc.textContent = p.descripcion;
+      mFeat.innerHTML = p.caracteristicas.map(c=>`<li>${c}</li>`).join('');
+      renderModalPrice();
+      mImg.src = encodeURI(p.imagenes[currentIndex]);
+      qtyNumber.textContent = currentQty;
+      productModal.classList.add('show');
     }
-  });
-  document.getElementById('seguir').onclick = closeCart;
-  /* ======== Finalizar compra ======== */
-  const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
-  const finalizarBtn = document.getElementById('finalizar');
-  function listaBullets(){
-    // retorna "- producto A\n- producto B..."
-    return cart.map(i=>`- ${i.nombre}`).join('\n');
-  }
-  function buildWhatsAppURL(nombre){
-    const numero = "51913004414"; // tu WhatsApp
-    // Nuevo mensaje:
-    // Hola 👋🏼, soy (el nombre que puso en el texto de nombre completo) y estoy interesado en los siguientes productos:
-    // - Producto A
-    // - Producto B
-    // Agradeceré tu pronta respuesta🙌🏼.
-    const msg = `Hola 👋🏼, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta🙌🏼.`;
-    return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
-  }
-  finalizarBtn.onclick = async ()=>{
-    const nombre = document.getElementById('fNombre').value.trim();
-    // ya no se pide correo ni teléfono
-    if(!nombre){
-      alert('Por favor ingresa tu nombre.');
-      return;
+    function closeProduct(){productModal.classList.remove('show');}
+    function showIdx(idx){
+      if(!currentProduct) return;
+      const total = currentProduct.imagenes.length;
+      currentIndex = (idx+total)%total;
+      mImg.src = encodeURI(currentProduct.imagenes[currentIndex]);
     }
-    if(cart.length===0){
-      alert('Tu carrito está vacío.');
-      return;
+    prevImg.onclick = ()=> showIdx(currentIndex-1);
+    nextImg.onclick = ()=> showIdx(currentIndex+1);
+    [mClose, mClose2].forEach(b=> b.onclick = closeProduct);
+    productModal.addEventListener('click', e=>{
+      if(e.target===productModal) closeProduct();
+    });
+    grid.addEventListener('click', e=>{
+      const card = e.target.closest('.card');
+      if(!card) return;
+      const id = card.getAttribute('data-id');
+      const p = productos.find(x=>x.id===id);
+      openProduct(p);
+    });
+    function renderModalPrice(){
+      if(currentProduct)
+        mPrice.textContent = `S/ ${(currentProduct.precio * currentQty).toFixed(2)}`;
     }
-    // Guarda en Google Sheets (sin bloquear si falla)
-    const payload = {
-      nombre,
-      items: cart.map(i=>({nombre:i.nombre, qty:i.qty, precio:i.precio})),
-      total: totalCartAmount(),
-      origen: "LeioTech Store / productos"
+    qtyDec.onclick = () => {
+      if(currentQty>1) { currentQty--; qtyNumber.textContent = currentQty; renderModalPrice(); }
     };
-    try {
-      await fetch(SHEETS_ENDPOINT, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      });
-    } catch(e){
-      /* no bloquea */
+    qtyInc.onclick = () => {
+      currentQty++; qtyNumber.textContent = currentQty; renderModalPrice();
+    };
+    let cart = [];
+    const cartCount = document.getElementById('cartCount');
+    const openCartBtn = document.getElementById('openCart');
+    const cartModal = document.getElementById('cartModal');
+    const cClose = document.getElementById('cClose');
+    const cartItems = document.getElementById('cartItems');
+    const resumeTotal = document.getElementById('resumeTotal');
+    function totalCartAmount(){return cart.reduce((s,i)=>s+i.precio*i.qty,0);}
+    function updateCount(){cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);}
+    function openCart(){cartModal.classList.add('show'); renderCart();}
+    function closeCart(){cartModal.classList.remove('show');}
+    openCartBtn.onclick = openCart;
+    cClose.onclick = closeCart;
+    cartModal.addEventListener('click', e=>{
+      if(e.target===cartModal) closeCart();
+    });
+    function vibrateCartFab(){
+      openCartBtn.classList.remove('vibrate');
+      setTimeout(()=> openCartBtn.classList.add('vibrate'),50);
+      setTimeout(()=> openCartBtn.classList.remove('vibrate'), 380);
     }
-    // Redirige a WhatsApp con el mensaje personalizado
-    window.location.href = buildWhatsAppURL(nombre);
-  };
-  /* Inicial */
-  updateCount();
+    btnAdd.onclick = ()=>{
+      if(!currentProduct) return;
+      let found = cart.find(i=>i.id===currentProduct.id);
+      if(found){
+        found.qty += currentQty; // se suma la cantidad seleccionada
+      }else{
+        cart.push({
+          id:currentProduct.id,
+          nombre:currentProduct.nombre,
+          precio:currentProduct.precio,
+          img:currentProduct.imagenes[0],
+          qty:currentQty
+        });
+      }
+      updateCount();
+      vibrateCartFab();
+      closeProduct();
+      openCart();
+    };
+    function renderCart(){
+      if(cart.length===0){
+        cartItems.innerHTML = '<div class="hint">Tu carrito está vacío.</div>';
+        resumeTotal.textContent = '';
+        resumeTotal.style.display = 'none';
+        return;
+      }
+      cartItems.innerHTML = cart.map(i=>`
+        <div class="cart-item" data-id="${i.id}">
+          <img src="${encodeURI(i.img)}" alt="">
+          <div>
+            <b>${i.nombre}</b>
+            <div class="cart-qty-box">
+              <button class="qty-btn cart-minus" data-id="${i.id}">-</button>
+              <span>${i.qty}</span>
+              <button class="qty-btn cart-plus" data-id="${i.id}">+</button>
+            </div>
+            <div class="cart-line-total">S/ ${(i.precio*i.qty).toFixed(2)}</div>
+          </div>
+          <button class="rm" data-id="${i.id}">Quitar</button>
+        </div>
+      `).join('');
+      resumeTotal.style.display = 'block';
+      resumeTotal.textContent = `Total a pagar: S/ ${totalCartAmount().toFixed(2)}`;
+    }
+    cartItems.addEventListener('click', e=>{
+      const id = e.target.getAttribute('data-id');
+      if(e.target.classList.contains('rm')){
+        cart = cart.filter(i=>i.id!==id);
+        updateCount(); renderCart();
+      }else if(e.target.classList.contains('cart-minus')){
+        let prod = cart.find(i=>i.id===id);
+        if(prod && prod.qty>1) prod.qty--;
+        updateCount(); renderCart();
+      }else if(e.target.classList.contains('cart-plus')){
+        let prod = cart.find(i=>i.id===id);
+        if(prod) prod.qty++;
+        updateCount(); renderCart();
+      }
+    });
+    document.getElementById('seguir').onclick = closeCart;
+    const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
+    const finalizarBtn = document.getElementById('finalizar');
+    function listaBullets(){
+      return cart.map(i => `- ${i.nombre} (x${i.qty})`).join('\n');
+    }
+    function buildWhatsAppURL(nombre){
+      const numero = "51913004414";
+      const msg = `Hola 👋🏼, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta🙌🏼.`;
+      return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+    }
+    finalizarBtn.onclick = async ()=>{
+      const nombre = document.getElementById('fNombre').value.trim();
+      if(!nombre){
+        alert('Por favor ingresa tu nombre.');
+        return;
+      }
+      if(cart.length===0){
+        alert('Tu carrito está vacío.');
+        return;
+      }
+      const payload = {
+        nombre,
+        items: cart.map(i=>({nombre:i.nombre, qty:i.qty, precio:i.precio})),
+        total: totalCartAmount(),
+        origen: "LeioTech Store / productos"
+      };
+      try {
+        await fetch(SHEETS_ENDPOINT, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+      } catch(e){}
+      window.location.href = buildWhatsAppURL(nombre);
+    };
+    updateCount();
   </script>
 </body>
 </html>
