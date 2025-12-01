@@ -32,6 +32,7 @@
         linear-gradient(160deg, #0A192F 0%, #0B1B33 60%, #0A192F 100%);
       background-attachment: fixed;
     }
+    /* Header simple */
     .header{
       max-width: 1200px;
       margin: 24px auto 0;
@@ -71,14 +72,10 @@
     .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
     .card p{margin:0 0 10px; color:#cfe7ffad}
     .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+    /* Nuevo: cantidad producto popup y carrito */
     .product-qty-box, .cart-qty-box{
       display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
-      background:rgba(33,48,84,0.10);
-      border-radius:10px;
-      border:2px solid #41e6c6dd;
-      box-shadow: 0 2px 8px #0c2b2f11;
-      padding:2px 7px;
-      transition: border .3s;
+      background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
     }
     .qty-btn{
       border:none; background:none; color:var(--teal); font-size:22px; padding:2px 6px; border-radius:7px;
@@ -86,7 +83,9 @@
     }
     .qty-btn:active{background:rgba(76,255,204,.12);}
     .cart-item>.cart-qty-box{margin-left:0;}
+    .cart-qty-box input[type="number"]{width:32px;}
     .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
+    /* Modal producto */
     .modal{
       position: fixed; inset:0; z-index:500;
       display:none; align-items:center; justify-content:center;
@@ -397,7 +396,7 @@
       if(!currentProduct) return;
       let found = cart.find(i=>i.id===currentProduct.id);
       if(found){
-        found.qty += currentQty;
+        found.qty += currentQty; // se suma la cantidad seleccionada
       }else{
         cart.push({
           id:currentProduct.id,
@@ -460,8 +459,7 @@
     }
     function buildWhatsAppURL(nombre){
       const numero = "51913004414";
-      // Solo emojis básicos para máxima compatibilidad con WhatsApp
-      const msg = `Hola 👋, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta 🙌.`;
+      const msg = `Hola 👋🏼, soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta🙌🏼.`;
       return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
     finalizarBtn.onclick = async ()=>{
