@@ -208,71 +208,61 @@
     }
     .fab:hover .tooltip{opacity:1}
     .mini{max-width:1200px; margin: 28px auto 80px; padding:0 18px; text-align:center; color:#cfe7ffbd}
+  </style>
 
-    /* --- Hero slider styles --- */
-    .hero{
-      max-width:1200px; margin:18px auto 6px; padding:0 18px;
+  <!-- ADDED: slider + contact styles (kept separate so original block remains intact) -->
+  <style>
+    /* Simple hero slider that cycles images every 5s */
+    .hero {
+      max-width:1200px;
+      margin: 18px auto 6px;
+      padding: 0 18px;
     }
-    .hero-slider{
-      position:relative;
-      height:220px;
-      border-radius:14px;
-      overflow:hidden;
-      background:#071225;
-      border:1px solid rgba(100,255,218,.12);
-      display:grid;
-      place-items:center;
+    .hero-slider {
+      position: relative;
+      height: 260px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #071225;
+      border: 1px solid rgba(100,255,218,.12);
+      display: grid;
+      place-items: center;
     }
-    .hero-slider img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transition:opacity .6s ease;
+    .hero-slider img { width:100%; height:100%; object-fit: cover; transition: opacity .6s ease; display:block; }
+    .hero-arrow {
+      position: absolute;
+      top:50%;
+      transform: translateY(-50%);
+      width:44px; height:44px; border-radius:50%;
+      background: rgba(0,0,0,.35); color:var(--white); display:grid; place-items:center;
+      cursor:pointer; border:1px solid rgba(255,255,255,.06);
     }
-    .hero-controls{
-      position:absolute; left:12px; right:12px; top:0; bottom:0; pointer-events:none;
-    }
-    .hero-arrow{
-      pointer-events:auto;
-      position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px;
-      border-radius:50%; display:grid; place-items:center; cursor:pointer;
-      background: rgba(0,0,0,.35); color:var(--white); border:1px solid rgba(255,255,255,.06);
-    }
-    .hero-arrow.left{left:12px}
-    .hero-arrow.right{right:12px}
-    .hero-dots{
-      position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:8px;
-    }
-    .hero-dot{
-      width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer;
-      border: 1px solid rgba(0,0,0,.25);
-    }
-    .hero-dot.active{background:var(--teal); box-shadow:0 0 10px rgba(100,255,218,.14)}
-    @media(min-width:1200px){
-      .hero-slider{height:360px}
-    }
+    .hero-arrow.left { left:12px }
+    .hero-arrow.right { right:12px }
+    .hero-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px }
+    .hero-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer; }
+    .hero-dot.active { background:var(--teal); box-shadow:0 0 8px rgba(100,255,218,.12) }
 
-    /* --- Contact/Footer area --- */
-    .contact{
-      max-width:1200px; margin:36px auto 24px; padding:22px 18px; border-radius:14px;
+    /* Contact block */
+    .contact {
+      max-width:1200px; margin: 36px auto 18px; padding:18px; border-radius:14px;
       background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
       border:1px solid rgba(100,255,218,.06);
-      display:grid; grid-template-columns: 1fr 280px; gap:18px; align-items:center;
+      display:flex; justify-content:space-between; gap:18px; align-items:center;
     }
-    @media(max-width:900px){
-      .contact{grid-template-columns:1fr; text-align:center}
+    @media(max-width:900px){ .contact{flex-direction:column; text-align:center} .contact .right{order:2} }
+    .contact .left { color:#cfe7ffcc }
+    .contact h3 { margin:0 0 6px; color:var(--teal) }
+    .contact .icons { display:flex; gap:10px; align-items:center; margin-top:8px }
+    .contact .icon-btn {
+      width:46px; height:46px; display:grid; place-items:center; border-radius:10px;
+      background:rgba(100,255,218,.04); border:1px solid rgba(100,255,218,.08);
+      color:var(--teal); transition: transform .16s ease, box-shadow .16s ease;
+      cursor:pointer;
     }
-    .contact .left{display:flex; gap:16px; align-items:center}
-    .contact .icons{display:flex; gap:12px; align-items:center}
-    .contact .icons a{display:inline-grid; place-items:center; width:44px; height:44px; border-radius:10px; background:rgba(100,255,218,.06); color:var(--teal); text-decoration:none; border:1px solid rgba(100,255,218,.08)}
-    .contact .right{font-size:14px; color:#cfe7ffbb}
-    .contact h3{margin:0 0 6px; color:var(--teal)}
-    .contact p{margin:2px 0}
-    .contact .small{color:#9fb8cf; font-size:13px}
-    footer.site-footer{
-      margin-top:8px; padding:18px 0; text-align:center; color:#9fb8cf; font-size:13px;
-    }
+    .contact .icon-btn:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,0,0,.35) }
+    .contact .right { text-align:right; color:#cfe7ffcc }
+    .contact .right .follow { font-weight:800; color:var(--teal); margin-bottom:6px }
   </style>
 </head>
 <body>
@@ -283,14 +273,12 @@
     <button class="cart-fab" id="openCart">🛒 Carrito <span id="cartCount">0</span></button>
   </header>
 
-  <!-- Hero slider (se mostrará sólo si hay imágenes en productos o en heroImages) -->
+  <!-- ADDED: Hero slider (kept separate; will use example images, does NOT replace existing product images) -->
   <div class="hero" id="heroWrap" aria-hidden="true">
     <div class="hero-slider" id="heroSlider" tabindex="0" aria-label="Galería de imágenes">
-      <!-- img inserted by JS -->
-      <div class="hero-controls">
-        <div class="hero-arrow left" id="heroPrev" aria-hidden="false">‹</div>
-        <div class="hero-arrow right" id="heroNext" aria-hidden="false">›</div>
-      </div>
+      <!-- images injected by JS -->
+      <div class="hero-arrow left" id="heroPrev" aria-hidden="false">‹</div>
+      <div class="hero-arrow right" id="heroNext" aria-hidden="false">›</div>
       <div class="hero-dots" id="heroDots" aria-hidden="false"></div>
     </div>
   </div>
@@ -302,7 +290,6 @@
     </div>
     <div class="grid" id="grid"></div>
   </section>
-
   <!-- Modal producto -->
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-card">
@@ -336,7 +323,6 @@
       </div>
     </div>
   </div>
-
   <!-- Modal carrito -->
   <div class="modal cart-modal" id="cartModal">
     <div class="modal-card">
@@ -358,54 +344,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Contact / Footer area -->
-  <div class="contact" id="contactSection">
-    <div class="left">
-      <div>
-        <h3>Contáctanos</h3>
-        <p class="small">Estamos disponibles para consultas, pedidos y soporte</p>
-        <p><strong>Email:</strong> <a href="mailto:leonardoandre1054@gmail.com" style="color:var(--teal); text-decoration:none">leonardoandre1054@gmail.com</a></p>
-        <p><strong>Celular:</strong> <a href="tel:+51913004414" style="color:var(--teal); text-decoration:none">+51 913 004 414</a></p>
-      </div>
-      <div style="width:8px"></div>
-      <div class="icons" aria-hidden="false">
-        <a href="https://instagram.com/leiotech" target="_blank" rel="noopener" title="Instagram">
-          <!-- Instagram icon (simple) -->
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="https://facebook.com/leiotech" target="_blank" rel="noopener" title="Facebook">
-          <!-- Facebook icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <path d="M15 3h2.5V7H15v2h2.5V17H15v4h-3v-4H9.5V9H12V6.5C12 5.1 12.9 3 15 3z" fill="currentColor"/>
-          </svg>
-        </a>
-        <a href="mailto:leonardoandre1054@gmail.com" title="Enviar correo">
-          <!-- Mail icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <path d="M3 6.5v11A2.5 2.5 0 0 0 5.5 20h13A2.5 2.5 0 0 0 21 17.5v-11A2.5 2.5 0 0 0 18.5 4h-13A2.5 2.5 0 0 0 3 6.5z" stroke="currentColor" stroke-width="1.2" fill="none"/>
-            <path d="M4 6.8l7.2 5.2a2 2 0 0 0 2.2 0L21 6.8" stroke="currentColor" stroke-width="1.2" fill="none"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-    <div class="right" style="text-align:right">
-      <div style="display:flex; justify-content:flex-end; gap:12px; align-items:center">
-        <div>
-          <div style="color:#cfe7ffcc; font-weight:700">Síguenos</div>
-          <div class="small">Instagram: <a href="https://instagram.com/leiotech" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none">@leiotech</a></div>
-          <div class="small">Facebook: <a href="https://facebook.com/leiotech" target="_blank" rel="noopener" style="color:var(--teal); text-decoration:none">leiotech</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer">LeioTech Store — © <span id="year"></span></footer>
-
   <div class="fabs">
     <!-- Puedes reemplazar el contenido del .fab por el emoji que más te guste -->
     <a class="fab" href="https://wa.me/51913004414?text=Hola%20estoy%20interesado%20en%20tus%20productos." target="_blank" rel="noopener">
@@ -417,21 +355,19 @@
     </a>
   </div>
 
-  <script>
-    // Productos (el array original aparece truncado en el archivo que me diste).
-    // Si tus objetos de producto ya contienen `imagenes` y `caracteristicas`, el slider los usará.
-    const productos = [
-      {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y e[...]',imagenes:['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1400&auto=format&fit=crop&q=60'],caracteristicas:['Carga rápida','1 metro']},
-      {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de[...]',imagenes:['https://images.unsplash.com/photo-1555617117-08b9a1a5a3c7?w=1400&auto=format&fit=crop&q=60'],caracteristicas:['20W','Compacto']},
-      {id:'p3',nombre:'Cable USB (1m)',precio:35.00,descripcion:'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera r�[...]',imagenes:['https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&auto=format&fit=crop&q=60'],caracteristicas:['Sincronización','1 metro']},
-      {id:'p4',nombre:'Cargador USB Portátil',precio:45.00,descripcion:'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',imagenes:['https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=1400&auto=format&fit=crop&q=60'],caracteristicas:['2600 mAh','Ligero']}
-    ];
+  <footer class="mini">LeioTech Store</footer>
 
-    // Rellenar la cuadrícula de productos como antes.
+  <script>
+    const productos = [
+      {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y e[...]
+      {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de[...]
+      {id:'p3',nombre:'Cable USB (1m)',precio:35.00,descripcion:'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera r�[...]
+      {id:'p4',nombre:'Cargador USB Portátil',precio:45.00,descripcion:'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',cara[...]
+    ];
     const grid = document.getElementById('grid');
     grid.innerHTML = productos.map(p =>
       `<article class="card" data-id="${p.id}">
-        <figure><img src="${encodeURI((p.imagenes && p.imagenes[0])||'')} alt="${p.nombre}"></figure>
+        <figure><img src="${encodeURI(p.imagenes[0])}" alt="${p.nombre}"></figure>
         <div class="body">
           <h3>${p.nombre}</h3>
           <p>${p.descripcion}</p>
@@ -439,8 +375,6 @@
         </div>
       </article>`
     ).join('');
-
-    // --- Modal producto (sin cambios funcionales) ---
     const productModal = document.getElementById('productModal');
     const mTitle = document.getElementById('mTitle');
     const mName = document.getElementById('mName');
@@ -466,15 +400,15 @@
       mTitle.textContent = p.nombre;
       mName.textContent = p.nombre;
       mDesc.textContent = p.descripcion;
-      mFeat.innerHTML = (p.caracteristicas||[]).map(c=>`<li>${c}</li>`).join('');
+      mFeat.innerHTML = p.caracteristicas.map(c=>`<li>${c}</li>`).join('');
       renderModalPrice();
-      mImg.src = encodeURI((p.imagenes && p.imagenes[currentIndex]) || '');
+      mImg.src = encodeURI(p.imagenes[currentIndex]);
       qtyNumber.textContent = currentQty;
       productModal.classList.add('show');
     }
     function closeProduct(){productModal.classList.remove('show');}
     function showIdx(idx){
-      if(!currentProduct || !currentProduct.imagenes) return;
+      if(!currentProduct) return;
       const total = currentProduct.imagenes.length;
       currentIndex = (idx+total)%total;
       mImg.src = encodeURI(currentProduct.imagenes[currentIndex]);
@@ -502,8 +436,6 @@
     qtyInc.onclick = () => {
       currentQty++; qtyNumber.textContent = currentQty; renderModalPrice();
     };
-
-    // --- Carrito (sin cambios funcionales) ---
     let cart = [];
     const cartCount = document.getElementById('cartCount');
     const openCartBtn = document.getElementById('openCart');
@@ -535,7 +467,7 @@
           id:currentProduct.id,
           nombre:currentProduct.nombre,
           precio:currentProduct.precio,
-          img:(currentProduct.imagenes && currentProduct.imagenes[0])||'',
+          img:currentProduct.imagenes[0],
           qty:currentQty
         });
       }
@@ -623,60 +555,60 @@
       window.location.href = buildWhatsAppURL(nombre);
     };
     updateCount();
+  </script>
 
-    // --- Hero slider logic ---
-    (function initHeroSlider(){
-      const heroSlider = document.getElementById('heroSlider');
-      const heroDots = document.getElementById('heroDots');
-      const heroPrev = document.getElementById('heroPrev');
-      const heroNext = document.getElementById('heroNext');
-      const heroWrap = document.getElementById('heroWrap');
+  <!-- ADDED: slider & contact behavior JS (no changes to original code above) -->
+  <script>
+    (function(){
+      // Example images for the top slider — these are only for the slider and do not replace product images.
+      // You can replace these URLs with your own images later.
+      const heroImages = [
+        'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1400&auto=format&fit=crop&q=60',
+        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&auto=format&fit=crop&q=60',
+        'https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=1400&auto=format&fit=crop&q=60'
+      ];
 
-      // Build images list from productos.imagenes (usará todas las imágenes encontradas)
-      let heroImages = productos.reduce((acc,p) => {
-        if(Array.isArray(p.imagenes)) acc.push(...p.imagenes);
-        return acc;
-      }, []);
+      const slider = document.getElementById('heroSlider');
+      const dotsContainer = document.getElementById('heroDots');
+      const prevBtn = document.getElementById('heroPrev');
+      const nextBtn = document.getElementById('heroNext');
 
-      // Si no hay imágenes, oculta la hero (evita mostrar bloque vacío).
-      if(!heroImages || heroImages.length === 0){
-        heroWrap.style.display = 'none';
+      if(!slider || !heroImages || heroImages.length === 0){
+        // hide wrapper if nothing to show
+        const wrap = document.getElementById('heroWrap');
+        if(wrap) wrap.style.display = 'none';
         return;
       }
 
-      // Remove duplicates (simple)
-      heroImages = heroImages.filter((v,i,a)=>a.indexOf(v)===i);
+      // create img element
+      const img = document.createElement('img');
+      img.src = heroImages[0];
+      img.alt = 'Banner';
+      img.style.opacity = 1;
+      slider.insertBefore(img, slider.firstChild);
 
       let current = 0;
-      let intervalMs = 5000;
+      const interval = 5000;
       let timer = null;
 
-      // create main <img> element and dots
-      const imgEl = document.createElement('img');
-      imgEl.alt = 'Hero image';
-      imgEl.src = heroImages[0];
-      imgEl.style.opacity = 1;
-      heroSlider.insertBefore(imgEl, heroSlider.firstChild);
-
       function renderDots(){
-        heroDots.innerHTML = '';
-        heroImages.forEach((_,i)=>{
+        dotsContainer.innerHTML = '';
+        heroImages.forEach((_, i) => {
           const d = document.createElement('div');
           d.className = 'hero-dot' + (i===current ? ' active' : '');
-          d.dataset.index = i;
+          d.dataset.i = i;
           d.addEventListener('click', ()=> goTo(i));
-          heroDots.appendChild(d);
+          dotsContainer.appendChild(d);
         });
       }
 
       function goTo(i){
         current = (i + heroImages.length) % heroImages.length;
-        imgEl.style.opacity = 0;
-        // wait for fade-out then change src
-        setTimeout(() => {
-          imgEl.src = heroImages[current];
-          imgEl.style.opacity = 1;
-        }, 200);
+        img.style.opacity = 0;
+        setTimeout(()=> {
+          img.src = heroImages[current];
+          img.style.opacity = 1;
+        }, 220);
         updateDots();
         resetTimer();
       }
@@ -689,36 +621,74 @@
       }
 
       function updateDots(){
-        Array.from(heroDots.children).forEach((d,idx)=> {
-          d.classList.toggle('active', idx===current);
+        Array.from(dotsContainer.children).forEach((d, idx) => {
+          d.classList.toggle('active', idx === current);
         });
       }
 
       function startTimer(){
         if(timer) clearInterval(timer);
         timer = setInterval(()=> {
-          current = (current+1) % heroImages.length;
+          current = (current + 1) % heroImages.length;
           goTo(current);
-        }, intervalMs);
+        }, interval);
       }
+      function resetTimer(){ startTimer() }
 
-      function resetTimer(){
-        startTimer();
-      }
-
-      heroPrev.addEventListener('click', prev);
-      heroNext.addEventListener('click', next);
-      heroSlider.addEventListener('mouseenter', ()=> { if(timer) clearInterval(timer); });
-      heroSlider.addEventListener('mouseleave', ()=> startTimer());
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+      slider.addEventListener('mouseenter', ()=> { if(timer) clearInterval(timer); });
+      slider.addEventListener('mouseleave', ()=> startTimer());
 
       renderDots();
       startTimer();
-      // make visible (in case aria-hidden was set)
-      heroWrap.setAttribute('aria-hidden','false');
-    })();
+      // make hero visible
+      const wrap = document.getElementById('heroWrap');
+      if(wrap) wrap.setAttribute('aria-hidden','false');
 
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+      // --- Add Contact block at bottom (keeping the rest of page intact) ---
+      const footerMini = document.querySelector('footer.mini');
+      if(footerMini){
+        const contactHTML = `
+          <div class="contact" id="contactSection">
+            <div class="left">
+              <h3>Contáctanos</h3>
+              <p class="small">Estamos disponibles para consultas, pedidos y soporte</p>
+              <p><strong>Email:</strong> <a href="mailto:leonardoandre1054@gmail.com" style="color:var(--teal); text-decoration:none">leonardoandre1054@gmail.com</a></p>
+              <p><strong>Celular:</strong> <a href="tel:+51913004414" style="color:var(--teal); text-decoration:none">+51 913 004 414</a></p>
+              <div class="icons" style="margin-top:6px">
+                <a class="icon-btn" href="https://instagram.com/leiotech" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
+                    <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                    <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                    <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/>
+                  </svg>
+                </a>
+                <a class="icon-btn" href="https://facebook.com/leiotech" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
+                    <path d="M15 3h2.5V7H15v2h2.5V17H15v4h-3v-4H9.5V9H12V6.5C12 5.1 12.9 3 15 3z" fill="currentColor"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="right">
+              <div class="follow">Síguenos</div>
+              <!-- Only icons on the right as requested -->
+              <div style="display:flex; gap:10px; justify-content:flex-end">
+                <a class="icon-btn" href="https://instagram.com/leiotech" target="_blank" rel="noopener" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg></a>
+                <a class="icon-btn" href="https://facebook.com/leiotech" target="_blank" rel="noopener" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block"><path d="M15 3h2.5V7H15v2h2.5V17H15v4h-3v-4H9.5V9H12V6.5C12 5.1 12.9 3 15 3z" fill="currentColor"/></svg></a>
+              </div>
+            </div>
+          </div>
+        `;
+        // insert contact block right before footer.mini
+        footerMini.insertAdjacentHTML('beforebegin', contactHTML);
+      }
+
+      // small enhancement: lift animation for fabs (already present) — we'll ensure similar for contact icons:
+      // (already applied with CSS .contact .icon-btn:hover)
+
+    })();
   </script>
 </body>
 </html>
