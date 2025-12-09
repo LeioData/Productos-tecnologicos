@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LeioTech Store</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -34,6 +35,7 @@
       background-attachment: fixed;
     }
 
+    /* HEADER */
     .header{
       max-width: 1200px;
       margin: 24px auto 0;
@@ -43,30 +45,28 @@
       justify-content:space-between;
       border-bottom: 1px solid rgba(100,255,218,.18);
     }
-    .logo{font-weight:800; letter-spacing:.3px; color:var(--teal)}
-    .brand{display:flex; gap:10px; align-items:center}
-    .brand small{color:#8fb3b3}
 
-    .wrap{max-width:1200px; margin: 24px auto 120px; padding: 0 18px;}
-
-    /* Título centrado sin emoji */
-    .title{
-      display:flex;
-      justify-content:center;
-      margin: 16px 0 18px;
-    }
-    .title h1{
-      margin:0;
-      font-size:32px;
-      text-align:center;
+    .logo{
+      font-weight:800;
+      letter-spacing:.3px;
       color:var(--teal);
+      font-size:22px;
     }
 
-    /* SLIDER HORIZONTAL */
+    /* ❤️ NUEVA CLASE PARA CENTRAR SOLO CUANDO SE REQUIERA */
+    .logo-center{
+      text-align:center;
+      width:100%;
+      display:block;
+      margin:18px auto 0;
+      font-size:32px;
+    }
+
+    /* SLIDER */
     .slider-container{
       width: 100%;
       max-width: 1200px;
-      margin: 25px auto 35px;
+      margin: 20px auto 35px;
       border-radius: var(--radius);
       overflow: hidden;
       position: relative;
@@ -83,7 +83,6 @@
       width: 100%;
       height: 320px;
       object-fit: cover;
-      display: block;
       filter: brightness(.9) contrast(1.1);
     }
     .slider-btn{
@@ -96,253 +95,141 @@
       font-size: 32px;
       padding: 8px 14px;
       border-radius: 10px;
-      cursor: pointer;
-      transition: .2s;
+      cursor:pointer;
+      transition:.2s ease;
     }
-    .slider-btn:hover{
-      background: rgba(0,0,0,.65);
+    .slider-btn:hover{ background: rgba(0,0,0,.65); }
+    .slider-btn.prev{ left: 10px }
+    .slider-btn.next{ right: 10px }
+
+    /* TÍTULO CATÁLOGO */
+    .title{
+      display:flex;
+      justify-content:center;
+      margin: 16px 0 18px;
     }
-    .slider-btn.prev{ left: 10px; }
-    .slider-btn.next{ right: 10px; }
+    .title h1{
+      margin:0;
+      font-size:32px;
+      color:var(--teal);
+    }
+
+    .wrap{
+      max-width:1200px;
+      margin: 24px auto 120px;
+      padding: 0 18px;
+    }
 
     .grid{
       display:grid;
       gap:20px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2,1fr);
     }
-    @media (max-width:900px){
-      .grid{grid-template-columns: 1fr;}
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr;}
     }
 
+    /* CARDS */
     .card{
       background:var(--card);
       border:1px solid rgba(100,255,218,.22);
       border-radius:18px;
       overflow:hidden;
-      box-shadow:var(--soft);
       transition:.25s ease;
       cursor:pointer;
+      box-shadow:var(--soft);
     }
-    .card:hover{transform: translateY(-4px); box-shadow: var(--shadow)}
-    .card figure{margin:0; height:260px; background:#071225; overflow:hidden}
-    .card img{width:100%; height:100%; object-fit:cover; display:block; filter: saturate(1.05) contrast(1.03)}
-    .card .body{padding:16px 16px 18px}
-    .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
-    .card p{margin:0 0 10px; color:#cfe7ffad}
-    .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+    .card:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+    .card figure{margin:0; height:260px; background:#071225;}
+    .card img{width:100%; height:100%; object-fit:cover;}
+    .card .body{padding:16px;}
+    .card h3{margin:0 0 6px; color:var(--teal);}
+    .card p{margin:0 0 10px; color:#cfe7ffbd;}
 
-    .product-qty-box, .cart-qty-box{
-      display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
-      background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
-    }
-    .qty-btn{
-      border:none; background:none; color:var(--teal); font-size:22px; padding:2px 6px; border-radius:7px;
-      cursor:pointer; font-weight:700; line-height:1; transition:background .2s;
-    }
-    .qty-btn:active{background:rgba(76,255,204,.12);}
-    .cart-item>.cart-qty-box{margin-left:0;}
-    .cart-qty-box input[type="number"]{width:32px;}
-    .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
-
-    .modal{
-      position: fixed; inset:0; z-index:500;
-      display:none; align-items:center; justify-content:center;
-      background: rgba(3,8,20,.55); backdrop-filter: blur(6px);
-      padding: 24px;
-    }
-    .modal.show{display:flex}
-    .modal-card{
-      width:min(1050px, 96vw);
-      background:var(--card);
-      border:1px solid rgba(100,255,218,.25);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .modal-head{
-      padding:14px 16px; border-bottom:1px solid rgba(100,255,218,.18);
-      display:flex; align-items:center; justify-content:space-between; font-weight:800;
-    }
-    .x{all:unset; cursor:pointer; font-size:22px; line-height:1; padding:6px 10px; border-radius:10px}
-    .x:hover{background:rgba(255,255,255,.06)}
-    .modal-body{
-      display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:18px;
-    }
-    @media (max-width:900px){
-      .modal-body{grid-template-columns:1fr}
-    }
-    .viewer{
-      position:relative; background:#071225; border-radius:16px; overflow:hidden;
-      min-height: 440px; display:grid; place-items:center;
-      border:1px solid rgba(100,255,218,.14)
-    }
-    .viewer img{max-width:100%; max-height:430px; display:block; object-fit:contain}
-    .nav-arrow{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
-      cursor:pointer; border:1px solid rgba(0,255,204,.6);
-      background: radial-gradient(60% 60% at 50% 50%, rgba(0,255,204,.18), rgba(0,255,204,.04));
-      box-shadow: 0 0 25px rgba(0,255,204,.22), inset 0 0 10px rgba(0,255,204,.15);
-      transition: .2s ease; color:var(--neon); font-weight:900; user-select:none;
-    }
-    .nav-arrow:hover{transform: translateY(-50%) scale(1.05); box-shadow:0 0 35px rgba(0,255,204,.35), inset 0 0 14px rgba(0,255,204,.22)}
-    .nav-prev{left:10px}
-    .nav-next{right:10px}
-    .desc h2{margin:4px 0 8px; color:var(--teal)}
-    .desc p{margin:0 0 10px; color:#cfe7ffcc}
-    .desc ul{margin:10px 0 16px 18px}
-    .desc li{margin:6px 0}
-    .actions{display:flex; gap:12px; align-items:center}
-    .btn{
-      appearance:none;
-      border:1px solid rgba(100,255,218,.55);
-      background: rgba(100,255,218,.10);
-      color:var(--white);
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:700;
-      cursor:pointer;
-      transition:.2s;
-      outline: none;
-    }
-    .btn:hover{background: rgba(100,255,218,.18)}
-    .btn.primary{
-      background: var(--live-btn-bg);
-      color:#00221e;
-      border-color:transparent;
-      box-shadow: var(--live-btn-glow);
-      position: relative;
-      overflow:hidden;
-      animation: pulseBtn 1.4s infinite cubic-bezier(0.4,0,0.2,1);
-    }
-    @keyframes pulseBtn {
-      0%, 100% { box-shadow: var(--live-btn-glow), 0 0 0 0 #64FFDA44; }
-      70% {      box-shadow: var(--live-btn-glow), 0 0 0 16px #03d3c216; }
-    }
-    .btn.primary:hover{
-      background: linear-gradient(90deg, #33fff1 0%, #20ff9d 100%);
-      color:#00927d;
-    }
-
-    .cart-fab{
-      position: fixed; top:18px; right:18px; z-index:120;
-      background: rgba(100,255,218,.12); color:var(--teal);
-      border:1px solid rgba(100,255,218,.4); padding:8px 12px; border-radius:12px;
-      font-weight:800; cursor:pointer;
-      transition: .1s;
-    }
-    .cart-fab.vibrate{animation: vibrateCart .34s linear;}
-    @keyframes vibrateCart{
-      0%,100%{transform:translate(0,0)}
-      20%{transform:translate(-2px,2px)}
-      36%{transform:translate(2px,-2px)}
-      48%{transform:translate(-1px,2px)}
-      62%{transform:translate(2px,1px)}
-      78%{transform:translate(-2px,-1px)}
-    }
-
-    .cart-modal .modal-body{grid-template-columns:1fr}
-    .cart-item{display:grid; grid-template-columns: 64px 1fr auto; gap:12px; align-items:center; background:#0c1e38; border:1px solid rgba(100,255,218,.12); padding:10px; border-radius:12px}
-    .cart-item img{width:64px; height:64px; object-fit:cover; border-radius:10px; border:1px solid rgba(100,255,218,.16)}
-    .cart-item b{color:var(--white)}
-    .rm{all:unset; cursor:pointer; color:#ff9aa7}
-
-    .form{display:grid; gap:10px; margin-top:14px}
-    .form .resume{font-weight:600; font-size:15px; color:#7df7d6; letter-spacing:.4px; margin-bottom:4px;}
-    .input{
-      width:100%; padding:12px 12px; border-radius:12px;
-      color:var(--white); background:#091731;
-      border:1px solid rgba(100,255,218,.16); outline:none;
-    }
-    .input:focus{border-color:rgba(100,255,218,.45)}
-    .hint{color:#9fb8cf; font-size:13px}
-
-    .fabs{
-      position: fixed; right:18px; bottom:18px; display:flex; gap:14px; z-index:130
-    }
-    .fab{
-      width:56px; height:56px; border-radius:18px; display:grid; place-items:center;
-      background:#0c1e38; border:1px solid rgba(100,255,218,.25); box-shadow: var(--soft);
-      cursor:pointer; position:relative; transition:.2s;
-    }
-    .fab:hover{transform: translateY(-4px); box-shadow: var(--shadow)}
-    .fab img{width:28px; height:28px}
-    .tooltip{
-      position:absolute; right:70px; top:50%; transform:translateY(-50%);
-      padding:10px 12px; border-radius:12px; background:#08152b;
-      border:1px solid rgba(100,255,218,.25); color:var(--white);
-      font-size:14px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s;
-    }
-    .fab:hover .tooltip{opacity:1}
-
-    .mini{max-width:1200px; margin: 28px auto 20px; padding:0 18px; text-align:center; color:#cfe7ffbd}
-
-    /* CONTACTANOS FOOTER */
+    /* CONTACTANOS */
     .contacto{
-      margin-top: 40px;
-      background: #0b1e36;
-      padding: 40px 20px 32px;
-      text-align: center;
-      border-top: 1px solid rgba(100,255,218,.25);
+      margin-top:60px;
+      background:#0b1e36;
+      padding:40px 20px 32px;
+      text-align:center;
+      border-top:1px solid rgba(100,255,218,.25);
     }
     .contacto h2{
-      margin: 0 0 18px;
-      font-size: 26px;
-      color: var(--teal);
+      margin:0 0 18px;
+      color:var(--teal);
+      font-size:26px;
     }
     .contact-links{
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      margin-top:18px;
     }
     .contact-icon{
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      background: #0c1e38;
+      width:54px;
+      height:54px;
+      border-radius:14px;
+      background:#0c1e38;
       border:1px solid rgba(100,255,218,.25);
       display:grid;
       place-items:center;
-      cursor:pointer;
       transition:.25s;
-      box-shadow: var(--soft);
+      box-shadow:var(--soft);
+      cursor:pointer;
     }
     .contact-icon:hover{
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
     }
     .contact-info{
-      margin-top: 25px;
+      margin-top:25px;
       color:#cfe7ffbd;
-      font-size: 15px;
+    }
+
+    /* FAB WHATSAPP */
+    .fabs{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:200;
+    }
+    .fab{
+      width:56px; height:56px;
+      display:grid; place-items:center;
+      background:#0c1e38;
+      border:1px solid rgba(100,255,218,.25);
+      border-radius:18px;
+      cursor:pointer;
+      box-shadow:var(--soft);
+      transition:.25s;
+    }
+    .fab:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
     }
   </style>
 </head>
+
 <body>
+
+  <!-- HEADER ORIGINAL (NO SE TOCA) -->
   <header class="header">
-    <div class="brand">
-      <div class="logo">LeioTech Store</div>
-    </div>
+    <div class="logo">LeioTech Store</div>
     <button class="cart-fab" id="openCart">🛒 Carrito <span id="cartCount">0</span></button>
   </header>
 
-  <!-- Slider horizontal con tus imágenes -->
+  <!-- TÍTULO CENTRADO (NUEVO) -->
+  <div class="logo logo-center">LeioTech Store</div>
+
+  <!-- SLIDER -->
   <section class="slider-container">
     <div class="slider" id="slider">
-      <div class="slide">
-        <img src="imagenes/CARRUSEL 1A.jpeg" alt="carrusel 1A">
-      </div>
-      <div class="slide">
-        <img src="imagenes/CARRUSEL 1B.jpeg" alt="carrusel 1B">
-      </div>
-      <div class="slide">
-        <img src="imagenes/CARRUSEL 1C.jpg" alt="carrusel 1C">
-      </div>
-      <div class="slide">
-        <img src="imagenes/CARRUSEL 1D.jpeg" alt="carrusel 1D">
-      </div>
+      <div class="slide"><img src="imagenes/CARRUSEL 1A.jpeg"></div>
+      <div class="slide"><img src="imagenes/CARRUSEL 1B.jpeg"></div>
+      <div class="slide"><img src="imagenes/CARRUSEL 1C.jpg"></div>
+      <div class="slide"><img src="imagenes/CARRUSEL 1D.jpeg"></div>
     </div>
+
     <button class="slider-btn prev" id="slidePrev">‹</button>
     <button class="slider-btn next" id="slideNext">›</button>
   </section>
@@ -353,7 +240,6 @@
     </div>
     <div class="grid" id="grid"></div>
   </section>
-
   <!-- Modal producto -->
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-card">
@@ -429,7 +315,8 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="30" alt="Instagram">
       </a>
       <a class="contact-icon" href="https://calendly.com/leonardoandre1054" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/9068/9068647.png" width="30" alt="Calendly">
+        <!-- ICONO NUEVO DE CALENDARIO -->
+        <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" width="30" alt="Calendario">
       </a>
     </div>
     <div class="contact-info">
@@ -440,7 +327,149 @@
 
   <footer class="mini">LeioTech Store</footer>
 
+  <!-- Estilos adicionales para modales, botones, inputs, etc.
+       (complementan lo que ya está en el <head>) -->
+  <style>
+    .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+
+    .product-qty-box, .cart-qty-box{
+      display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
+      background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
+    }
+    .qty-btn{
+      border:none; background:none; color:var(--teal); font-size:22px; padding:2px 6px; border-radius:7px;
+      cursor:pointer; font-weight:700; line-height:1; transition:background .2s;
+    }
+    .qty-btn:active{background:rgba(76,255,204,.12);}
+
+    .cart-fab{
+      position: fixed; top:18px; right:18px; z-index:120;
+      background: rgba(100,255,218,.12); color:var(--teal);
+      border:1px solid rgba(100,255,218,.4); padding:8px 12px; border-radius:12px;
+      font-weight:800; cursor:pointer;
+      transition: .1s;
+    }
+    .cart-fab.vibrate{animation: vibrateCart .34s linear;}
+    @keyframes vibrateCart{
+      0%,100%{transform:translate(0,0)}
+      20%{transform:translate(-2px,2px)}
+      36%{transform:translate(2px,-2px)}
+      48%{transform:translate(-1px,2px)}
+      62%{transform:translate(2px,1px)}
+      78%{transform:translate(-2px,-1px)}
+    }
+
+    .modal{
+      position: fixed; inset:0; z-index:500;
+      display:none; align-items:center; justify-content:center;
+      background: rgba(3,8,20,.55); backdrop-filter: blur(6px);
+      padding: 24px;
+    }
+    .modal.show{display:flex}
+    .modal-card{
+      width:min(1050px, 96vw);
+      background:var(--card);
+      border:1px solid rgba(100,255,218,.25);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 16px; border-bottom:1px solid rgba(100,255,218,.18);
+      display:flex; align-items:center; justify-content:space-between; font-weight:800;
+    }
+    .x{all:unset; cursor:pointer; font-size:22px; line-height:1; padding:6px 10px; border-radius:10px}
+    .x:hover{background:rgba(255,255,255,.06)}
+    .modal-body{
+      display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:18px;
+    }
+    @media (max-width:900px){
+      .modal-body{grid-template-columns:1fr}
+    }
+    .viewer{
+      position:relative; background:#071225; border-radius:16px; overflow:hidden;
+      min-height: 440px; display:grid; place-items:center;
+      border:1px solid rgba(100,255,218,.14)
+    }
+    .viewer img{max-width:100%; max-height:430px; display:block; object-fit:contain}
+    .nav-arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+      cursor:pointer; border:1px solid rgba(0,255,204,.6);
+      background: radial-gradient(60% 60% at 50% 50%, rgba(0,255,204,.18), rgba(0,255,204,.04));
+      box-shadow: 0 0 25px rgba(0,255,204,.22), inset 0 0 10px rgba(0,255,204,.15);
+      transition: .2s ease; color:var(--neon); font-weight:900; user-select:none;
+    }
+    .nav-arrow:hover{transform: translateY(-50%) scale(1.05); box-shadow:0 0 35px rgba(0,255,204,.35), inset 0 0 14px rgba(0,255,204,.22)}
+    .nav-prev{left:10px}
+    .nav-next{right:10px}
+
+    .desc h2{margin:4px 0 8px; color:var(--teal)}
+    .desc p{margin:0 0 10px; color:#cfe7ffcc}
+    .desc ul{margin:10px 0 16px 18px}
+    .desc li{margin:6px 0}
+    .actions{display:flex; gap:12px; align-items:center}
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(100,255,218,.55);
+      background: rgba(100,255,218,.10);
+      color:var(--white);
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+      outline: none;
+    }
+    .btn:hover{background: rgba(100,255,218,.18)}
+    .btn.primary{
+      background: var(--live-btn-bg);
+      color:#00221e;
+      border-color:transparent;
+      box-shadow: var(--live-btn-glow);
+      position: relative;
+      overflow:hidden;
+      animation: pulseBtn 1.4s infinite cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: var(--live-btn-glow), 0 0 0 0 #64FFDA44; }
+      70% {      box-shadow: var(--live-btn-glow), 0 0 0 16px #03d3c216; }
+    }
+
+    .form{display:grid; gap:10px; margin-top:14px}
+    .form .resume{
+      font-weight:600; font-size:15px;
+      color:#7df7d6; letter-spacing:.4px; margin-bottom:4px;
+    }
+    .input{
+      width:100%; padding:12px 12px; border-radius:12px;
+      color:var(--white); background:#091731;
+      border:1px solid rgba(100,255,218,.16); outline:none;
+    }
+    .input:focus{border-color:rgba(100,255,218,.45)}
+    .hint{color:#9fb8cf; font-size:13px}
+
+    .cart-item{
+      display:grid;
+      grid-template-columns: 64px 1fr auto;
+      gap:12px; align-items:center;
+      background:#0c1e38;
+      border:1px solid rgba(100,255,218,.12);
+      padding:10px; border-radius:12px;
+    }
+    .cart-item img{
+      width:64px; height:64px;
+      object-fit:cover; border-radius:10px;
+      border:1px solid rgba(100,255,218,.16);
+    }
+    .cart-item b{color:var(--white)}
+    .rm{all:unset; cursor:pointer; color:#ff9aa7}
+    .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
+  </style>
+
   <script>
+    /* ========= DATA PRODUCTOS ========= */
     const productos = [
       {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.',caracteristicas:['Longitud 1 m','USB-C a Lightning','Power Delivery','Material TPE flexible y duradero'],imagenes:['imagenes/1A Cable C (1m) Carga Rápida.jpg','imagenes/1B Cable C (1m) Carga Rápida.jpg']},
       {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.',caracteristicas:['Salida 20 W','Puerto USB-C','Compatible con Power Delivery','Diseño compacto y portátil'],imagenes:['imagenes/2A Adaptador de corriente USB-C.jpg','imagenes/2B Adaptador de corriente USB-C.jpg']},
@@ -460,6 +489,7 @@
       </article>`
     ).join('');
 
+    /* ========= MODAL PRODUCTO ========= */
     const productModal = document.getElementById('productModal');
     const mTitle = document.getElementById('mTitle');
     const mName = document.getElementById('mName');
@@ -475,6 +505,7 @@
     const qtyDec = document.getElementById('qtyDec');
     const qtyInc = document.getElementById('qtyInc');
     const qtyNumber = document.getElementById('qtyNumber');
+
     let currentProduct = null;
     let currentIndex = 0;
     let currentQty = 1;
@@ -523,6 +554,7 @@
       currentQty++; qtyNumber.textContent = currentQty; renderModalPrice();
     };
 
+    /* ========= CARRITO ========= */
     let cart = [];
     const cartCount = document.getElementById('cartCount');
     const openCartBtn = document.getElementById('openCart');
@@ -611,6 +643,7 @@
 
     document.getElementById('seguir').onclick = closeCart;
 
+    /* ========= WHATSAPP + SHEETS ========= */
     const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
     const finalizarBtn = document.getElementById('finalizar');
 
@@ -650,14 +683,14 @@
     };
     updateCount();
 
-    /* SLIDER AUTOMÁTICO */
+    /* ========= SLIDER AUTOMÁTICO ========= */
     let currentSlide = 0;
-    const slider = document.getElementById("slider");
+    const sliderEl = document.getElementById("slider");
     const totalSlides = document.querySelectorAll(".slide").length;
 
     function moveSlider(index){
       currentSlide = (index + totalSlides) % totalSlides;
-      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      sliderEl.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
     setInterval(() => {
