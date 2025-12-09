@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LeioTech Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --blue-900:#0A192F;
@@ -44,9 +45,22 @@
     .logo{font-weight:800; letter-spacing:.3px; color:var(--teal)}
     .brand{display:flex; gap:10px; align-items:center}
     .brand small{color:#8fb3b3}
+
     .wrap{max-width:1200px; margin: 24px auto 120px; padding: 0 18px;}
-    .title{display:flex; gap:10px; align-items:center; margin: 16px 0 18px}
-    .title i{filter: drop-shadow(0 6px 20px rgba(0,0,0,.35))}
+
+    /* Título centrado sin emoji */
+    .title{
+      display:flex;
+      justify-content:center;
+      margin: 16px 0 18px;
+    }
+    .title h1{
+      margin:0;
+      font-size:32px;
+      text-align:center;
+      color:var(--teal);
+    }
+
     .grid{
       display:grid;
       gap:20px;
@@ -55,6 +69,7 @@
     @media (max-width:900px){
       .grid{grid-template-columns: 1fr;}
     }
+
     .card{
       background:var(--card);
       border:1px solid rgba(100,255,218,.22);
@@ -64,13 +79,15 @@
       transition:.25s ease;
       cursor:pointer;
     }
-    .card:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
+    .card:hover{transform: translateY(-4px); box-shadow: var(--shadow)} /* levanta al pasar */
+
     .card figure{margin:0; height:260px; background:#071225; overflow:hidden}
     .card img{width:100%; height:100%; object-fit:cover; display:block; filter: saturate(1.05) contrast(1.03)}
     .card .body{padding:16px 16px 18px}
     .card h3{margin:0 0 6px; font-size:18px; color:var(--teal)}
     .card p{margin:0 0 10px; color:#cfe7ffad}
     .price{font-weight:800; letter-spacing:.3px; display:inline-block;}
+
     .product-qty-box, .cart-qty-box{
       display:inline-flex; align-items:center; gap:8px; font-size:17px; margin-left:12px;
       background:rgba(33,48,84,0.10); border-radius:8px; padding:2px 7px;
@@ -83,6 +100,7 @@
     .cart-item>.cart-qty-box{margin-left:0;}
     .cart-qty-box input[type="number"]{width:32px;}
     .cart-line-total{font-size:14px; color:#59e7c6ac; font-weight:600;}
+
     .modal{
       position: fixed; inset:0; z-index:500;
       display:none; align-items:center; justify-content:center;
@@ -162,6 +180,7 @@
       background: linear-gradient(90deg, #33fff1 0%, #20ff9d 100%);
       color:#00927d;
     }
+
     .cart-fab{
       position: fixed; top:18px; right:18px; z-index:120;
       background: rgba(100,255,218,.12); color:var(--teal);
@@ -178,13 +197,35 @@
       62%{transform:translate(2px,1px)}
       78%{transform:translate(-2px,-1px)}
     }
+
     .cart-modal .modal-body{grid-template-columns:1fr}
-    .cart-item{display:grid; grid-template-columns: 64px 1fr auto; gap:12px; align-items:center; background:#0c1e38; border:1px solid rgba(100,255,218,.12); padding:10px; border-radius:12px}
-    .cart-item img{width:64px; height:64px; object-fit:cover; border-radius:10px; border:1px solid rgba(100,255,218,.16)}
+    .cart-item{
+      display:grid;
+      grid-template-columns: 64px 1fr auto;
+      gap:12px;
+      align-items:center;
+      background:#0c1e38;
+      border:1px solid rgba(100,255,218,.12);
+      padding:10px;
+      border-radius:12px
+    }
+    .cart-item img{
+      width:64px; height:64px;
+      object-fit:cover;
+      border-radius:10px;
+      border:1px solid rgba(100,255,218,.16)
+    }
     .cart-item b{color:var(--white)}
     .rm{all:unset; cursor:pointer; color:#ff9aa7}
+
     .form{display:grid; gap:10px; margin-top:14px}
-    .form .resume{font-weight:600; font-size:15px; color:#7df7d6; letter-spacing:.4px; margin-bottom:4px;}
+    .form .resume{
+      font-weight:600;
+      font-size:15px;
+      color:#7df7d6;
+      letter-spacing:.4px;
+      margin-bottom:4px;
+    }
     .input{
       width:100%; padding:12px 12px; border-radius:12px;
       color:var(--white); background:#091731;
@@ -192,13 +233,21 @@
     }
     .input:focus{border-color:rgba(100,255,218,.45)}
     .hint{color:#9fb8cf; font-size:13px}
-    .fabs{position: fixed; right:18px; bottom:18px; display:flex; gap:14px; z-index:130}
+
+    .fabs{
+      position: fixed;
+      right:18px;
+      bottom:18px;
+      display:flex;
+      gap:14px;
+      z-index:130
+    }
     .fab{
       width:56px; height:56px; border-radius:18px; display:grid; place-items:center;
       background:#0c1e38; border:1px solid rgba(100,255,218,.25); box-shadow: var(--soft);
       cursor:pointer; position:relative; transition:.2s;
     }
-    .fab:hover{transform: translateY(-2px); box-shadow: var(--shadow)}
+    .fab:hover{transform: translateY(-4px); box-shadow: var(--shadow)} /* levanta como pediste */
     .fab img{width:28px; height:28px}
     .tooltip{
       position:absolute; right:70px; top:50%; transform:translateY(-50%);
@@ -207,7 +256,99 @@
       font-size:14px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s;
     }
     .fab:hover .tooltip{opacity:1}
-    .mini{max-width:1200px; margin: 28px auto 80px; padding:0 18px; text-align:center; color:#cfe7ffbd}
+
+    .mini{
+      max-width:1200px;
+      margin: 28px auto 20px;
+      padding:0 18px;
+      text-align:center;
+      color:#cfe7ffbd
+    }
+
+    /* === SLIDER HORIZONTAL === */
+    .slider-container{
+      width: 100%;
+      max-width: 1200px;
+      margin: 25px auto 35px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--soft);
+    }
+    .slider{
+      display: flex;
+      width: 300%;
+      transition: transform .6s ease;
+    }
+    .slide{
+      width: 100%;
+    }
+    .slide img{
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.9) contrast(1.1);
+    }
+    .slider-btn{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,.45);
+      color: white;
+      border: none;
+      font-size: 32px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .slider-btn:hover{
+      background: rgba(0,0,0,.65);
+    }
+    .slider-btn.prev{ left: 10px; }
+    .slider-btn.next{ right: 10px; }
+
+    /* === CONTACTANOS FOOTER === */
+    .contacto{
+      margin-top: 40px;
+      background: #0b1e36;
+      padding: 40px 20px 32px;
+      text-align: center;
+      border-top: 1px solid rgba(100,255,218,.25);
+    }
+    .contacto h2{
+      margin: 0 0 18px;
+      font-size: 26px;
+      color: var(--teal);
+    }
+    .contact-links{
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 18px;
+    }
+    .contact-icon{
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: #0c1e38;
+      border:1px solid rgba(100,255,218,.25);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      transition:.25s;
+      box-shadow: var(--soft);
+    }
+    .contact-icon:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .contact-info{
+      margin-top: 25px;
+      color:#cfe7ffbd;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
@@ -217,13 +358,31 @@
     </div>
     <button class="cart-fab" id="openCart">🛒 Carrito <span id="cartCount">0</span></button>
   </header>
+
+  <!-- Slider horizontal -->
+  <section class="slider-container">
+    <div class="slider" id="slider">
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="slide1">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1517142089942-ba376ce32a0a" alt="slide2">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def" alt="slide3">
+      </div>
+    </div>
+    <button class="slider-btn prev" id="slidePrev">‹</button>
+    <button class="slider-btn next" id="slideNext">›</button>
+  </section>
+
   <section class="wrap">
     <div class="title">
-      <span style="font-size:22px">🚀</span>
-      <h1 style="margin:0">Catálogo Tecnológico</h1>
+      <h1>Catálogo Tecnológico</h1>
     </div>
     <div class="grid" id="grid"></div>
   </section>
+
   <!-- Modal producto -->
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-card">
@@ -257,6 +416,7 @@
       </div>
     </div>
   </div>
+
   <!-- Modal carrito -->
   <div class="modal cart-modal" id="cartModal">
     <div class="modal-card">
@@ -278,8 +438,9 @@
       </div>
     </div>
   </div>
+
+  <!-- BOTONES FLOTANTES -->
   <div class="fabs">
-    <!-- Puedes reemplazar el contenido del .fab por el emoji que más te guste -->
     <a class="fab" href="https://wa.me/51913004414?text=Hola%20estoy%20interesado%20en%20tus%20productos." target="_blank" rel="noopener">
       <span class="tooltip">Chatea conmigo por WhatsApp</span>
       <span style="font-size:32px;">💬</span>
@@ -288,7 +449,26 @@
       <span style="font-size:32px;">📅</span>
     </a>
   </div>
+
+  <!-- Sección contáctanos -->
+  <section class="contacto">
+    <h2>Contáctanos</h2>
+    <div class="contact-links">
+      <a class="contact-icon" href="https://www.facebook.com/leiotech" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="30" alt="Facebook">
+      </a>
+      <a class="contact-icon" href="https://www.instagram.com/leiotech" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="30" alt="Instagram">
+      </a>
+    </div>
+    <div class="contact-info">
+      <p><b>Celular:</b> 913004414</p>
+      <p><b>Correo:</b> leonardoandre1054@gmail.com</p>
+    </div>
+  </section>
+
   <footer class="mini">LeioTech Store</footer>
+
   <script>
     const productos = [
       {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.',caracteristicas:['Longitud 1 m','USB-C a Lightning','Power Delivery','Material TPE flexible y duradero'],imagenes:['imagenes/1A Cable C (1m) Carga Rápida.jpg','imagenes/1B Cable C (1m) Carga Rápida.jpg']},
@@ -307,6 +487,7 @@
         </div>
       </article>`
     ).join('');
+
     const productModal = document.getElementById('productModal');
     const mTitle = document.getElementById('mTitle');
     const mName = document.getElementById('mName');
@@ -325,6 +506,7 @@
     let currentProduct = null;
     let currentIndex = 0;
     let currentQty = 1;
+
     function openProduct(p){
       currentProduct = p;
       currentIndex = 0;
@@ -368,6 +550,7 @@
     qtyInc.onclick = () => {
       currentQty++; qtyNumber.textContent = currentQty; renderModalPrice();
     };
+
     let cart = [];
     const cartCount = document.getElementById('cartCount');
     const openCartBtn = document.getElementById('openCart');
@@ -375,6 +558,7 @@
     const cClose = document.getElementById('cClose');
     const cartItems = document.getElementById('cartItems');
     const resumeTotal = document.getElementById('resumeTotal');
+
     function totalCartAmount(){return cart.reduce((s,i)=>s+i.precio*i.qty,0);}
     function updateCount(){cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0);}
     function openCart(){cartModal.classList.add('show'); renderCart();}
@@ -384,11 +568,13 @@
     cartModal.addEventListener('click', e=>{
       if(e.target===cartModal) closeCart();
     });
+
     function vibrateCartFab(){
       openCartBtn.classList.remove('vibrate');
       setTimeout(()=> openCartBtn.classList.add('vibrate'),50);
       setTimeout(()=> openCartBtn.classList.remove('vibrate'), 380);
     }
+
     btnAdd.onclick = ()=>{
       if(!currentProduct) return;
       let found = cart.find(i=>i.id===currentProduct.id);
@@ -408,6 +594,7 @@
       closeProduct();
       openCart();
     };
+
     function renderCart(){
       if(cart.length===0){
         cartItems.innerHTML = '<div class="hint">Tu carrito está vacío.</div>';
@@ -433,6 +620,7 @@
       resumeTotal.style.display = 'block';
       resumeTotal.textContent = `Total a pagar: S/ ${totalCartAmount().toFixed(2)}`;
     }
+
     cartItems.addEventListener('click', e=>{
       const id = e.target.getAttribute('data-id');
       if(e.target.classList.contains('rm')){
@@ -448,19 +636,21 @@
         updateCount(); renderCart();
       }
     });
+
     document.getElementById('seguir').onclick = closeCart;
+
     const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
     const finalizarBtn = document.getElementById('finalizar');
+
     function listaBullets(){
-      // Solo el nombre de cada producto, como bullets
       return cart.map(i => `- ${i.nombre}`).join('\n');
     }
     function buildWhatsAppURL(nombre){
       const numero = "51913004414";
-      // Mensaje editado según el pedido, sin paréntesis, sin emojis, limpio como solicitaste
       const msg = `Hola! Soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta.`;
       return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
+
     finalizarBtn.onclick = async ()=>{
       const nombre = document.getElementById('fNombre').value.trim();
       if(!nombre){
@@ -487,6 +677,25 @@
       window.location.href = buildWhatsAppURL(nombre);
     };
     updateCount();
+
+    /* =========================
+          SLIDER AUTOMÁTICO
+    ========================= */
+    let currentSlide = 0;
+    const slider = document.getElementById("slider");
+    const totalSlides = document.querySelectorAll(".slide").length;
+
+    function moveSlider(index){
+      currentSlide = (index + totalSlides) % totalSlides;
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    setInterval(() => {
+      moveSlider(currentSlide + 1);
+    }, 5000);
+
+    document.getElementById("slidePrev").onclick = () => moveSlider(currentSlide - 1);
+    document.getElementById("slideNext").onclick = () => moveSlider(currentSlide + 1);
   </script>
 </body>
 </html>
