@@ -208,50 +208,6 @@
     }
     .fab:hover .tooltip{opacity:1}
     .mini{max-width:1200px; margin: 28px auto 80px; padding:0 18px; text-align:center; color:#cfe7ffbd}
-
-    /* Added styles: hero slider + contact area */
-    .hero{
-      max-width:1200px; margin:18px auto 6px; padding:0 18px;
-    }
-    .hero-slider{
-      position:relative;
-      height:260px;
-      border-radius:14px;
-      overflow:hidden;
-      background:#071225;
-      border:1px solid rgba(100,255,218,.12);
-      display:grid;
-      place-items:center;
-    }
-    .hero-slider img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .6s ease}
-    .hero-arrow{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
-      cursor:pointer; background: rgba(0,0,0,.35); color:var(--white); border:1px solid rgba(255,255,255,.06);
-    }
-    .hero-arrow.left{left:12px}
-    .hero-arrow.right{right:12px}
-    .hero-dots{position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px}
-    .hero-dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer}
-    .hero-dot.active{background:var(--teal); box-shadow:0 0 8px rgba(100,255,218,.12)}
-
-    .contact{
-      max-width:1200px; margin:36px auto 24px; padding:18px; border-radius:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      border:1px solid rgba(100,255,218,.06);
-      display:grid; grid-template-columns: 1fr 240px; gap:18px; align-items:center;
-    }
-    @media (max-width:900px){ .contact{grid-template-columns:1fr; text-align:center} .contact .right{text-align:center} }
-    .contact h3{margin:0 0 6px; color:var(--teal)}
-    .contact p{margin:2px 0; color:#cfe7ffcc}
-    .contact .icons{display:flex; gap:10px; margin-top:8px}
-    .contact .icon-btn{
-      width:46px; height:46px; display:grid; place-items:center; border-radius:10px; background:rgba(100,255,218,.04);
-      border:1px solid rgba(100,255,218,.08); color:var(--teal); transition: transform .16s ease, box-shadow .16s ease; cursor:pointer;
-    }
-    .contact .icon-btn:hover{transform:translateY(-8px); box-shadow:0 14px 40px rgba(0,0,0,.45)}
-    .contact .right{font-size:14px; color:#cfe7ffbb}
-    .contact .right .follow{font-weight:800; color:var(--teal); margin-bottom:6px}
   </style>
 </head>
 <body>
@@ -261,17 +217,6 @@
     </div>
     <button class="cart-fab" id="openCart">🛒 Carrito <span id="cartCount">0</span></button>
   </header>
-
-  <!-- HERO SLIDER ADDED (will not replace any product images) -->
-  <div class="hero" id="heroWrap" aria-hidden="true">
-    <div class="hero-slider" id="heroSlider" tabindex="0" aria-label="Galería de imágenes">
-      <!-- JS will inject images here -->
-      <div class="hero-arrow left" id="heroPrev">‹</div>
-      <div class="hero-arrow right" id="heroNext">›</div>
-      <div class="hero-dots" id="heroDots"></div>
-    </div>
-  </div>
-
   <section class="wrap">
     <div class="title">
       <span style="font-size:22px">🚀</span>
@@ -344,54 +289,12 @@
     </a>
   </div>
   <footer class="mini">LeioTech Store</footer>
-
-  <!-- CONTACT BLOCK INSERTED BEFORE FOOTER: keeps original page intact and only adds this section -->
-  <div class="contact" id="contactSection" aria-label="Contáctanos">
-    <div class="left">
-      <h3>Contáctanos</h3>
-      <p class="small">Estamos disponibles para consultas, pedidos y soporte</p>
-      <p><strong>Email:</strong> <a href="mailto:leonardoandre1054@gmail.com" style="color:var(--teal); text-decoration:none">leonardoandre1054@gmail.com</a></p>
-      <p><strong>Celular:</strong> <a href="tel:+51913004414" style="color:var(--teal); text-decoration:none">+51 913 004 414</a></p>
-      <div class="icons" aria-hidden="false">
-        <a class="icon-btn" href="https://instagram.com/leiotech" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/>
-          </svg>
-        </a>
-        <a class="icon-btn" href="https://facebook.com/leiotech" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <path d="M15 3h2.5V7H15v2h2.5V17H15v4h-3v-4H9.5V9H12V6.5C12 5.1 12.9 3 15 3z" fill="currentColor"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-    <div class="right">
-      <div class="follow">Síguenos</div>
-      <div style="display:flex; gap:10px; justify-content:flex-end">
-        <a class="icon-btn" href="https://instagram.com/leiotech" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/>
-          </svg>
-        </a>
-        <a class="icon-btn" href="https://facebook.com/leiotech" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
-            <path d="M15 3h2.5V7H15v2h2.5V17H15v4h-3v-4H9.5V9H12V6.5C12 5.1 12.9 3 15 3z" fill="currentColor"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
   <script>
     const productos = [
-      {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y e[...]
-      {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de[...]
-      {id:'p3',nombre:'Cable USB (1m)',precio:35.00,descripcion:'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera r�[...]
-      {id:'p4',nombre:'Cargador USB Portátil',precio:45.00,descripcion:'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',cara[...]
+      {id:'p1',nombre:'Cable C (1m) Carga Rápida',precio:38.00,descripcion:'Diseñado para una carga eficiente y transferencia rápida de datos entre tus dispositivos Apple con conector Lightning y equipos con puerto USB-C.',caracteristicas:['Longitud 1 m','USB-C a Lightning','Power Delivery','Material TPE flexible y duradero'],imagenes:['imagenes/1A Cable C (1m) Carga Rápida.jpg','imagenes/1B Cable C (1m) Carga Rápida.jpg']},
+      {id:'p2',nombre:'Adaptador de corriente USB-C',precio:40.00,descripcion:'Carga tu iPhone, iPad o cualquier dispositivo compatible de forma rápida y segura con este adaptador compacto de 20 W de potencia.',caracteristicas:['Salida 20 W','Puerto USB-C','Compatible con Power Delivery','Diseño compacto y portátil'],imagenes:['imagenes/2A Adaptador de corriente USB-C.jpg','imagenes/2B Adaptador de corriente USB-C.jpg']},
+      {id:'p3',nombre:'Cable USB (1m)',precio:35.00,descripcion:'Conecta y sincroniza tu iPhone, iPad o iPod con conector Lightning a tu computadora o adaptador de corriente para cargarlo de manera rápida y segura.',caracteristicas:['Longitud 1 m','Conector Lightning a USB-A','Compatible con iPhone, iPad y iPod','Material resistente'],imagenes:['imagenes/3A Cable USB (1m).jpg','imagenes/3B Cable USB (1m).jpg','imagenes/3C Cable USB (1m).jpg']},
+      {id:'p4',nombre:'Cargador USB Portátil',precio:45.00,descripcion:'Carga tus dispositivos en cualquier lugar con este práctico powerbank de 2,600 mAh, compacto, ligero y fácil de llevar.',caracteristicas:['Capacidad 2,600 mAh','Salida 5V/1A','Entrada 5V/0.5A (Micro USB)','Batería de polímero','Indicador luminoso de carga'],imagenes:['imagenes/4A Cargador USB Portatil.jpeg','imagenes/4B Cargador USB Portatil.jpeg','imagenes/4C Cargador USB Portatil.jpg']}
     ];
     const grid = document.getElementById('grid');
     grid.innerHTML = productos.map(p =>
@@ -584,92 +487,6 @@
       window.location.href = buildWhatsAppURL(nombre);
     };
     updateCount();
-
-    /* ADDED JS: hero slider behavior (uses its own images, does NOT replace product images) */
-    (function initHero(){
-      const heroImages = [
-        'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1400&auto=format&fit=crop&q=60',
-        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&auto=format&fit=crop&q=60',
-        'https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?w=1400&auto=format&fit=crop&q=60'
-      ];
-      const heroWrap = document.getElementById('heroWrap');
-      const heroSlider = document.getElementById('heroSlider');
-      const heroPrev = document.getElementById('heroPrev');
-      const heroNext = document.getElementById('heroNext');
-      const heroDots = document.getElementById('heroDots');
-
-      if(!heroImages || heroImages.length === 0 || !heroSlider){
-        if(heroWrap) heroWrap.style.display = 'none';
-        return;
-      }
-
-      // create image element
-      const imgEl = document.createElement('img');
-      imgEl.alt = 'Banner';
-      imgEl.src = heroImages[0];
-      imgEl.style.opacity = 1;
-      heroSlider.insertBefore(imgEl, heroSlider.firstChild);
-
-      let current = 0;
-      const intervalMs = 5000;
-      let timer = null;
-
-      function renderDots(){
-        heroDots.innerHTML = '';
-        heroImages.forEach((_,i)=>{
-          const d = document.createElement('div');
-          d.className = 'hero-dot' + (i===current ? ' active' : '');
-          d.dataset.index = i;
-          d.addEventListener('click', ()=> goTo(i));
-          heroDots.appendChild(d);
-        });
-      }
-
-      function goTo(i){
-        current = (i + heroImages.length) % heroImages.length;
-        imgEl.style.opacity = 0;
-        setTimeout(() => {
-          imgEl.src = heroImages[current];
-          imgEl.style.opacity = 1;
-        }, 220);
-        updateDots();
-        resetTimer();
-      }
-
-      function prev(){
-        goTo(current-1);
-      }
-      function next(){
-        goTo(current+1);
-      }
-
-      function updateDots(){
-        Array.from(heroDots.children).forEach((d,idx)=> {
-          d.classList.toggle('active', idx===current);
-        });
-      }
-
-      function startTimer(){
-        if(timer) clearInterval(timer);
-        timer = setInterval(()=> {
-          current = (current+1) % heroImages.length;
-          goTo(current);
-        }, intervalMs);
-      }
-
-      function resetTimer(){ startTimer(); }
-
-      heroPrev.addEventListener('click', prev);
-      heroNext.addEventListener('click', next);
-      heroSlider.addEventListener('mouseenter', ()=> { if(timer) clearInterval(timer); });
-      heroSlider.addEventListener('mouseleave', ()=> startTimer());
-
-      renderDots();
-      startTimer();
-      if(heroWrap) heroWrap.setAttribute('aria-hidden','false');
-    })();
-
-    /* small enhancement: add subtle lift animation already provided by CSS (.icon-btn:hover) */
   </script>
 </body>
 </html>
