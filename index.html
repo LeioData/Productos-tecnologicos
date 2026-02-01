@@ -711,13 +711,26 @@
     const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrbq-AXXwPM9vxBUHQQ8BtUW-mic7IHN8n1WYxuemYDg_LRxM4K0Ej-fQuDuxfTHCP/exec";
     const finalizarBtn = document.getElementById('finalizar');
     function listaBullets(){
-      return cart.map(i => `- ${i.nombre}`).join('\n');
+    return cart.map(i => 
+        `- ${i.nombre} x${i.qty} — S/ ${(i.precio * i.qty).toFixed(2)}`
+      ).join('\n');
     }
+
     function buildWhatsAppURL(nombre){
-      const numero = "51913004414";
-      const msg = `Hola! Soy ${nombre} y estoy interesado en los siguientes productos:\n${listaBullets()}\nAgradeceré tu pronta respuesta.`;
-      return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+    const numero = "51913004414";
+    const msg =
+    `Hola! Soy ${nombre} 👋
+    Estoy interesado en los siguientes productos:
+
+    ${listaBullets()}
+
+    Total a pagar: S/ ${totalCartAmount().toFixed(2)}
+
+    Quedo atento(a), gracias 🙌`;
+
+    return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
+
     finalizarBtn.onclick = async ()=>{
       const nombre = document.getElementById('fNombre').value.trim();
       if(!nombre){
