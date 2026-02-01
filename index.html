@@ -719,14 +719,14 @@
     function buildWhatsAppURL(nombre){
     const numero = "51913004414";
     const msg =
-    `Hola! Soy ${nombre} 👋
+    `Hola! Soy ${nombre}
     Estoy interesado en los siguientes productos:
 
     ${listaBullets()}
 
     Total a pagar: S/ ${totalCartAmount().toFixed(2)}
 
-    Quedo atento(a), gracias 🙌`;
+    Quedo atento(a), gracias`;
 
     return `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
     }
